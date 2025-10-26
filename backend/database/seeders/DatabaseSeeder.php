@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
             'status' => 'active',
             'role' => 'admin',
             'password' => Hash::make('password123'),
-            'avatarimg' => 'admin-avatar.jpg'
+            'avatarimage' => 'admin-avatar.jpg'
         ]);
 
         $users = [];
@@ -43,7 +43,7 @@ class DatabaseSeeder extends Seeder
                 'status' => 'active',
                 'role' => 'user',
                 'password' => Hash::make('password123'),
-                'avatarimg' => 'user' . $i . '-avatar.jpg',
+                'avatarimage' => 'user' . $i . '-avatar.jpg',
                 'ordernum' => rand(0, 20)
             ]);
         }
@@ -105,38 +105,64 @@ class DatabaseSeeder extends Seeder
             $promotionModels[] = Promotion::create($promotion);
         }
 
-        // Tạo Products
+        // Tạo Products (dựa trên ảnh thực tế trong frontend/public)
         $products = [
-            // Laptops
-            ['category_id' => $categoryModels[0]->id, 'productname' => 'Dell XPS 15', 'price' => 1500.00, 'discount' => 10, 'quantity' => 50, 'description' => 'Premium laptop for professionals', 'detail' => 'Intel Core i7, 16GB RAM, 512GB SSD', 'guarantee' => '2 years', 'status' => 'active', 'image' => 'dell-xps-15.jpg'],
-            ['category_id' => $categoryModels[0]->id, 'productname' => 'MacBook Pro 14', 'price' => 2000.00, 'discount' => 5, 'quantity' => 30, 'description' => 'Apple MacBook Pro with M3 chip', 'detail' => 'M3 chip, 16GB RAM, 512GB SSD', 'guarantee' => '1 year', 'status' => 'active', 'image' => 'macbook-pro-14.jpg'],
-            ['category_id' => $categoryModels[0]->id, 'productname' => 'Lenovo ThinkPad X1', 'price' => 1200.00, 'discount' => 15, 'quantity' => 40, 'description' => 'Business laptop with great keyboard', 'detail' => 'Intel Core i5, 8GB RAM, 256GB SSD', 'guarantee' => '3 years', 'status' => 'active', 'image' => 'lenovo-thinkpad-x1.jpg'],
-            
-            // Smartphones
-            ['category_id' => $categoryModels[1]->id, 'productname' => 'iPhone 15 Pro', 'price' => 1200.00, 'discount' => 0, 'quantity' => 100, 'description' => 'Latest iPhone with A17 Pro chip', 'detail' => '256GB, Titanium design, ProMotion display', 'guarantee' => '1 year', 'status' => 'active', 'image' => 'iphone-15-pro.jpg'],
-            ['category_id' => $categoryModels[1]->id, 'productname' => 'Samsung Galaxy S24', 'price' => 900.00, 'discount' => 10, 'quantity' => 80, 'description' => 'Samsung flagship with AI features', 'detail' => '128GB, Snapdragon 8 Gen 3, AMOLED display', 'guarantee' => '1 year', 'status' => 'active', 'image' => 'galaxy-s24.jpg'],
-            ['category_id' => $categoryModels[1]->id, 'productname' => 'Google Pixel 8', 'price' => 700.00, 'discount' => 5, 'quantity' => 60, 'description' => 'Pure Android experience with great camera', 'detail' => '128GB, Tensor G3, Best camera', 'guarantee' => '1 year', 'status' => 'active', 'image' => 'pixel-8.jpg'],
-            
-            // Tablets
-            ['category_id' => $categoryModels[2]->id, 'productname' => 'iPad Air', 'price' => 600.00, 'discount' => 0, 'quantity' => 50, 'description' => 'Versatile iPad for work and play', 'detail' => '64GB, M1 chip, 10.9-inch display', 'guarantee' => '1 year', 'status' => 'active', 'image' => 'ipad-air.jpg'],
-            ['category_id' => $categoryModels[2]->id, 'productname' => 'Samsung Galaxy Tab S9', 'price' => 500.00, 'discount' => 10, 'quantity' => 45, 'description' => 'Premium Android tablet', 'detail' => '128GB, Snapdragon 8 Gen 2, S Pen included', 'guarantee' => '1 year', 'status' => 'active', 'image' => 'galaxy-tab-s9.jpg'],
-            
-            // Accessories
-            ['category_id' => $categoryModels[3]->id, 'productname' => 'Logitech MX Master 3', 'price' => 100.00, 'discount' => 0, 'quantity' => 200, 'description' => 'Premium wireless mouse', 'detail' => 'Ergonomic design, Multi-device connectivity', 'guarantee' => '1 year', 'status' => 'active', 'image' => 'mx-master-3.jpg'],
-            ['category_id' => $categoryModels[3]->id, 'productname' => 'Magic Keyboard', 'price' => 150.00, 'discount' => 5, 'quantity' => 150, 'description' => 'Wireless keyboard for Mac', 'detail' => 'Rechargeable, Bluetooth connectivity', 'guarantee' => '1 year', 'status' => 'active', 'image' => 'magic-keyboard.jpg'],
-            ['category_id' => $categoryModels[3]->id, 'productname' => 'USB-C Hub 7-in-1', 'price' => 50.00, 'discount' => 15, 'quantity' => 300, 'description' => 'Multi-port USB-C adapter', 'detail' => 'HDMI, USB 3.0, SD card reader', 'guarantee' => '6 months', 'status' => 'active', 'image' => 'usb-c-hub.jpg'],
-            
-            // Gaming
-            ['category_id' => $categoryModels[4]->id, 'productname' => 'PlayStation 5', 'price' => 500.00, 'discount' => 0, 'quantity' => 70, 'description' => 'Next-gen gaming console', 'detail' => '825GB SSD, 4K gaming, Ray tracing', 'guarantee' => '1 year', 'status' => 'active', 'image' => 'ps5.jpg'],
-            ['category_id' => $categoryModels[4]->id, 'productname' => 'Xbox Series X', 'price' => 500.00, 'discount' => 0, 'quantity' => 65, 'description' => 'Microsoft gaming console', 'detail' => '1TB SSD, 4K 120fps, Game Pass', 'guarantee' => '1 year', 'status' => 'active', 'image' => 'xbox-series-x.jpg'],
-            
-            // Audio
-            ['category_id' => $categoryModels[5]->id, 'productname' => 'AirPods Pro 2', 'price' => 250.00, 'discount' => 10, 'quantity' => 150, 'description' => 'Premium wireless earbuds', 'detail' => 'Active noise cancellation, Spatial audio', 'guarantee' => '1 year', 'status' => 'active', 'image' => 'airpods-pro-2.jpg'],
-            ['category_id' => $categoryModels[5]->id, 'productname' => 'Sony WH-1000XM5', 'price' => 350.00, 'discount' => 5, 'quantity' => 100, 'description' => 'Best noise-canceling headphones', 'detail' => 'Industry-leading ANC, 30-hour battery', 'guarantee' => '1 year', 'status' => 'active', 'image' => 'sony-wh-1000xm5.jpg'],
-            
-            // Wearable
-            ['category_id' => $categoryModels[6]->id, 'productname' => 'Apple Watch Series 9', 'price' => 400.00, 'discount' => 0, 'quantity' => 90, 'description' => 'Advanced smartwatch', 'detail' => 'S9 chip, Always-on display, Health tracking', 'guarantee' => '1 year', 'status' => 'active', 'image' => 'apple-watch-9.jpg'],
-            ['category_id' => $categoryModels[6]->id, 'productname' => 'Samsung Galaxy Watch 6', 'price' => 300.00, 'discount' => 10, 'quantity' => 85, 'description' => 'Feature-rich Android smartwatch', 'detail' => 'Wear OS, Health monitoring, Long battery', 'guarantee' => '1 year', 'status' => 'active', 'image' => 'galaxy-watch-6.jpg']
+            // Smartphones - Sản phẩm thực tế có ảnh
+            [
+                'category_id' => $categoryModels[1]->id,
+                'productname' => 'Samsung Galaxy S25 Ultra Xanh',
+                'price' => 27990000,
+                'discount' => 5,
+                'quantity' => 50,
+                'description' => 'Samsung Galaxy S25 Ultra phiên bản màu xanh sang trọng với nhiều tính năng AI tiên tiến',
+                'detail' => 'Màn hình 6.8" Dynamic AMOLED 2X, Snapdragon 8 Gen 4, Camera 200MP, Pin 5000mAh, Bút S Pen tích hợp',
+                'guarantee' => '12 tháng',
+                'status' => 'active',
+                'image' => 'galaxy-s25-ultra-xanh.jpg'
+            ],
+            [
+                'category_id' => $categoryModels[1]->id,
+                'productname' => 'OPPO Reno14 F 5G Pink',
+                'price' => 8990000,
+                'discount' => 10,
+                'quantity' => 80,
+                'description' => 'OPPO Reno14 F màu hồng thời trang với thiết kế mỏng nhẹ và camera chụp chân dung xuất sắc',
+                'detail' => 'Màn hình 6.7" AMOLED 120Hz, MediaTek Dimensity 6300, Camera 50MP AI, Pin 5000mAh, Sạc nhanh 45W',
+                'guarantee' => '12 tháng',
+                'status' => 'active',
+                'image' => 'oppo-reno14-f-pink.jpg'
+            ],
+            [
+                'category_id' => $categoryModels[1]->id,
+                'productname' => 'Samsung Galaxy S25 FE Blue',
+                'price' => 16990000,
+                'discount' => 8,
+                'quantity' => 60,
+                'description' => 'Samsung Galaxy S25 FE màu xanh dương với hiệu năng mạnh mẽ và giá cả phải chăng',
+                'detail' => 'Màn hình 6.6" Dynamic AMOLED 2X 120Hz, Exynos 2400e, Camera 50MP OIS, Pin 4500mAh, Sạc nhanh 25W',
+                'guarantee' => '12 tháng',
+                'status' => 'active',
+                'image' => 'samsung-galaxy-s25-fe-blue.jpg'
+            ],
+
+            // Các sản phẩm khác (không có ảnh thực tế)
+            ['category_id' => $categoryModels[0]->id, 'productname' => 'Dell XPS 15', 'price' => 35000000, 'discount' => 10, 'quantity' => 30, 'description' => 'Laptop cao cấp cho doanh nhân và nhà sáng tạo nội dung', 'detail' => 'Intel Core i7-13700H, 16GB RAM, 512GB SSD, RTX 4050, Màn hình 15.6" FHD+', 'guarantee' => '24 tháng', 'status' => 'active', 'image' => 'dell-xps-15.jpg'],
+            ['category_id' => $categoryModels[0]->id, 'productname' => 'MacBook Pro 14', 'price' => 52000000, 'discount' => 5, 'quantity' => 25, 'description' => 'MacBook Pro 14 inch với chip M3 Pro mạnh mẽ', 'detail' => 'Apple M3 Pro, 18GB RAM, 512GB SSD, Màn hình Liquid Retina XDR 14.2"', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'macbook-pro-14.jpg'],
+
+            ['category_id' => $categoryModels[2]->id, 'productname' => 'iPad Air M2', 'price' => 16000000, 'discount' => 0, 'quantity' => 40, 'description' => 'iPad Air với chip M2 mạnh mẽ, lý tưởng cho công việc và giải trí', 'detail' => 'Chip M2, 128GB, Màn hình Liquid Retina 10.9", Hỗ trợ Apple Pencil', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'ipad-air-m2.jpg'],
+            ['category_id' => $categoryModels[2]->id, 'productname' => 'Samsung Galaxy Tab S9', 'price' => 13000000, 'discount' => 10, 'quantity' => 35, 'description' => 'Máy tính bảng Android cao cấp kèm bút S Pen', 'detail' => '128GB, Snapdragon 8 Gen 2, Màn hình 11" Dynamic AMOLED 2X, S Pen đi kèm', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'galaxy-tab-s9.jpg'],
+
+            ['category_id' => $categoryModels[3]->id, 'productname' => 'AirPods Pro 2', 'price' => 6500000, 'discount' => 10, 'quantity' => 100, 'description' => 'Tai nghe không dây cao cấp với chống ồn chủ động', 'detail' => 'Chip H2, Chống ồn chủ động, Âm thanh không gian, Chống nước IPX4', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'airpods-pro-2.jpg'],
+            ['category_id' => $categoryModels[3]->id, 'productname' => 'Logitech MX Master 3S', 'price' => 2500000, 'discount' => 0, 'quantity' => 150, 'description' => 'Chuột không dây cao cấp cho năng suất tối đa', 'detail' => 'Cảm biến 8000 DPI, Kết nối đa thiết bị, Pin 70 ngày, Cuộn im lặng', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'logitech-mx-master-3s.jpg'],
+
+            ['category_id' => $categoryModels[4]->id, 'productname' => 'PlayStation 5 Slim', 'price' => 13000000, 'discount' => 0, 'quantity' => 50, 'description' => 'Máy chơi game thế hệ mới với hiệu năng vượt trội', 'detail' => '1TB SSD, Ray Tracing, 4K 120fps, Hỗ trợ VR', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'ps5-slim.jpg'],
+            ['category_id' => $categoryModels[4]->id, 'productname' => 'Xbox Series X', 'price' => 13500000, 'discount' => 0, 'quantity' => 45, 'description' => 'Console gaming mạnh mẽ từ Microsoft', 'detail' => '1TB SSD, 4K 120fps, Ray Tracing, Game Pass', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'xbox-series-x.jpg'],
+
+            ['category_id' => $categoryModels[5]->id, 'productname' => 'Sony WH-1000XM5', 'price' => 8500000, 'discount' => 5, 'quantity' => 70, 'description' => 'Tai nghe chống ồn tốt nhất thị trường', 'detail' => 'Chống ồn hàng đầu, Pin 30 giờ, LDAC, Multipoint', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'sony-wh-1000xm5.jpg'],
+            ['category_id' => $categoryModels[5]->id, 'productname' => 'Bose QuietComfort Ultra', 'price' => 9500000, 'discount' => 8, 'quantity' => 60, 'description' => 'Tai nghe cao cấp với âm thanh không gian', 'detail' => 'Immersive Audio, Chống ồn CustomTune, Pin 24 giờ', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'bose-qc-ultra.jpg'],
+
+            ['category_id' => $categoryModels[6]->id, 'productname' => 'Apple Watch Series 9', 'price' => 10500000, 'discount' => 0, 'quantity' => 80, 'description' => 'Đồng hồ thông minh cao cấp từ Apple', 'detail' => 'Chip S9, Màn hình Always-On, Theo dõi sức khỏe toàn diện, WatchOS 10', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'apple-watch-series-9.jpg'],
+            ['category_id' => $categoryModels[6]->id, 'productname' => 'Samsung Galaxy Watch 6', 'price' => 7500000, 'discount' => 10, 'quantity' => 75, 'description' => 'Smartwatch Android với nhiều tính năng sức khỏe', 'detail' => 'Wear OS, Theo dõi giấc ngủ, ECG, Đo thành phần cơ thể', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'galaxy-watch-6.jpg']
         ];
 
         $productModels = [];
@@ -144,14 +170,36 @@ class DatabaseSeeder extends Seeder
             $productModels[] = Product::create($product);
         }
 
-        // Tạo Images cho products
-        foreach ($productModels as $index => $product) {
-            // Mỗi sản phẩm có 2-4 ảnh bổ sung
+        // Tạo Images cho products (dựa trên ảnh thực tế)
+        // 3 sản phẩm đầu có ảnh thực tế
+        $realImageProducts = [
+            ['product_index' => 0, 'image_count' => 5], // Galaxy S25 Ultra có 5 ảnh phụ
+            ['product_index' => 1, 'image_count' => 6], // OPPO Reno14 F có 6 ảnh phụ
+            ['product_index' => 2, 'image_count' => 5], // Samsung S25 FE có 5 ảnh phụ
+        ];
+
+        foreach ($realImageProducts as $productInfo) {
+            $product = $productModels[$productInfo['product_index']];
+            $imageBaseName = str_replace('.jpg', '', $product->image);
+
+            for ($i = 1; $i <= $productInfo['image_count']; $i++) {
+                Image::create([
+                    'product_id' => $product->id,
+                    'image' => $imageBaseName . '-' . $i . '.jpg'
+                ]);
+            }
+        }
+
+        // Các sản phẩm còn lại tạo ảnh giả (2-4 ảnh)
+        for ($index = 3; $index < count($productModels); $index++) {
+            $product = $productModels[$index];
             $numImages = rand(2, 4);
+            $imageBaseName = str_replace('.jpg', '', $product->image);
+
             for ($i = 1; $i <= $numImages; $i++) {
                 Image::create([
                     'product_id' => $product->id,
-                    'image' => $product->image . '-' . $i . '.jpg'
+                    'image' => $imageBaseName . '-' . $i . '.jpg'
                 ]);
             }
         }
@@ -161,7 +209,7 @@ class DatabaseSeeder extends Seeder
             // Mỗi user comment cho 2-5 sản phẩm ngẫu nhiên
             $numComments = rand(2, 5);
             $randomProducts = collect($productModels)->random(min($numComments, count($productModels)));
-            
+
             foreach ($randomProducts as $product) {
                 Comment::create([
                     'user_id' => $user->id,
@@ -177,7 +225,7 @@ class DatabaseSeeder extends Seeder
             // 5 user đầu có giỏ hàng
             $numItems = rand(1, 4);
             $randomProducts = collect($productModels)->random(min($numItems, count($productModels)));
-            
+
             foreach ($randomProducts as $product) {
                 Cart::create([
                     'user_id' => $user->id,
@@ -191,11 +239,11 @@ class DatabaseSeeder extends Seeder
         foreach ($users as $index => $user) {
             // Mỗi user có 1-3 đơn hàng
             $numOrders = rand(1, 3);
-            
+
             for ($o = 0; $o < $numOrders; $o++) {
                 $statuses = ['pending', 'confirmed', 'shipping', 'delivered', 'cancelled'];
                 $paymentStatuses = ['unpaid', 'paid', 'refunded', 'failed'];
-                
+
                 $order = Order::create([
                     'user_id' => $user->id,
                     'total' => 0, // Sẽ cập nhật sau

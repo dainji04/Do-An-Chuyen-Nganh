@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('role')->default('user');
             $table->integer('rejectnum')->default(0);
             $table->string('token')->nullable();
-            $table->string('avatarimg')->nullable();
+            $table->string('avatarimage')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
