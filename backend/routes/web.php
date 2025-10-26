@@ -7,4 +7,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/all-products', [ProductController::class, 'getAllProducts']);
+Route::get('/products', [ProductController::class, 'getAllProducts']);
