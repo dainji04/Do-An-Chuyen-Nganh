@@ -6,8 +6,17 @@ import { Product } from '../../types/product';
   selector: 'app-product-item',
   imports: [CurrencyPipe],
   templateUrl: './product-item.html',
-  styleUrl: './product-item.scss',
+  styles: [
+    `
+      .product-0,
+      .product-1 {
+        color: #ffffff !important;
+        background-color: #000000 !important;
+      }
+    `,
+  ],
 })
 export class ProductItem {
   @Input() product!: Product;
+  @Input() index!: number;
 }

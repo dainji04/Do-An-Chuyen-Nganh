@@ -1,0 +1,12 @@
+<section class="product-categories">
+  <div class="categories-container">
+    @for (category of categories; track category.id) {
+    <a [href]="category.link" class="category-item">
+      <div class="category-image-wrapper">
+        <img [src]="category.image" [alt]="category.name" class="category-image" />
+      </div>
+      <h3 class="category-title">{{ category.name }}</h3>
+    </a>
+    }
+  </div>
+</section>

@@ -1,4 +1,4 @@
-import { Component, Input, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, Input, CUSTOM_ELEMENTS_SCHEMA, ViewChild, ElementRef } from '@angular/core';
 import { ProductItem } from '../product-item/product-item';
 import { register } from 'swiper/element/bundle';
 import { Product } from '../../types/product';
@@ -14,4 +14,18 @@ register();
 })
 export class ListProduct {
   @Input() products: Product[] = [];
+
+  @ViewChild('swiper') swiperRef!: ElementRef;
+
+  ngAfterViewInit() {
+    // Swiper instance available here if needed
+  }
+
+  slidePrev() {
+    this.swiperRef.nativeElement.swiper.slidePrev();
+  }
+
+  slideNext() {
+    this.swiperRef.nativeElement.swiper.slideNext();
+  }
 }

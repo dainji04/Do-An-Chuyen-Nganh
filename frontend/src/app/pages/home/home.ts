@@ -4,10 +4,11 @@ import { ProductItem } from '../../components/product-item/product-item';
 import { ListProduct } from '../../components/list-product/list-product';
 import { Product, simpleDataProduct } from '../../types/product';
 import { Products } from '../../services/products/products';
+import { ProductNav } from '../../components/product-nav/product-nav';
 
 @Component({
   selector: 'app-home',
-  imports: [TitleListProduct, ListProduct],
+  imports: [TitleListProduct, ListProduct, ProductNav],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
