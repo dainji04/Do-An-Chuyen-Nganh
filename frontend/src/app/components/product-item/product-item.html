@@ -1,0 +1,8 @@
+<div
+  class="product-card bg-bg-secondary p-4 rounded-lg shadow-[2px_4px_12px_#00000014] hover:shadow-[2px_4px_16px_#00000029] transition-shadow duration-300"
+>
+  <h3 class="product-title text-[28px]">{{ product.productname }}</h3>
+  <p class="product-description text-xl">{{ product.description }}</p>
+  <p class="product-price">Từ {{ product.price | currency }}₫</p>
+  <img [src]="product.image" [alt]="product.productname" class="product-image" />
+</div>

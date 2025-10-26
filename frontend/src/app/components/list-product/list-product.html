@@ -1,0 +1,7 @@
+<swiper-container class="mySwiper" slides-per-view="3" space-between="20" navigation="true">
+  @for (item of products; track $index) {
+  <swiper-slide class="max-w-[400px] py-4">
+    <app-product-item [product]="item"></app-product-item>
+  </swiper-slide>
+  }
+</swiper-container>
