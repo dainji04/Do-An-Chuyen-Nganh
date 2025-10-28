@@ -1,0 +1,133 @@
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.login-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  padding: 48px 80px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.logo {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+}
+
+.title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+}
+
+.subtitle {
+  text-align: center;
+  color: #666;
+  margin: 0 0 32px 0;
+  font-size: 14px;
+}
+
+nz-form-item {
+  margin-bottom: 20px;
+}
+
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.forgot-password {
+  color: #667eea;
+  font-size: 14px;
+
+  &:hover {
+    color: #764ba2;
+  }
+}
+
+.submit-btn {
+  height: 45px;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+
+  &:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  }
+}
+
+.social-login {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.google-btn,
+.facebook-btn {
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 500;
+  border: 1px solid #e0e0e0;
+
+  &:hover {
+    border-color: #667eea;
+    color: #667eea;
+  }
+}
+
+.register-link {
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+
+  a {
+    color: #667eea;
+    font-weight: 600;
+    margin-left: 4px;
+
+    &:hover {
+      color: #764ba2;
+    }
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+::ng-deep {
+  .ant-input-affix-wrapper {
+    height: 45px;
+    border-radius: 8px;
+  }
+
+  .ant-input {
+    height: 100%;
+  }
+
+  .ant-form-item-explain-error {
+    font-size: 12px;
+  }
+}
