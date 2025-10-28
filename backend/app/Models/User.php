@@ -6,11 +6,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens;
 
     // User has many emails
     public function emails()
@@ -25,12 +26,14 @@ class User extends Authenticatable
     }
 
     // User has many comments
-    public function comments() {
+    public function comments()
+    {
         return $this->hasMany(Comment::class);
     }
 
     // User has many orders
-    public function orders() {
+    public function orders()
+    {
         return $this->hasMany(Order::class);
     }
 
@@ -50,7 +53,7 @@ class User extends Authenticatable
         'role',
         'rejectnum',
         'token',
-        'avatarimg',
+        'avatarimage',
         'password',
     ];
 

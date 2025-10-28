@@ -43,7 +43,7 @@ class DatabaseSeeder extends Seeder
                 'status' => 'active',
                 'role' => 'user',
                 'password' => Hash::make('password123'),
-                'avatarimage' => 'user' . $i . '-avatar.jpg',
+                'avatarimage' => 'https://ui-avatars.com/api/?name=' . $i . '&background=random&color=fff',
                 'ordernum' => rand(0, 20)
             ]);
         }
@@ -115,7 +115,7 @@ class DatabaseSeeder extends Seeder
                 'discount' => 5,
                 'quantity' => 50,
                 'description' => 'Samsung Galaxy S25 Ultra phiên bản màu xanh sang trọng với nhiều tính năng AI tiên tiến',
-                'detail' => 'Màn hình 6.8" Dynamic AMOLED 2X, Snapdragon 8 Gen 4, Camera 200MP, Pin 5000mAh, Bút S Pen tích hợp',
+                'detail' => 'Màn hình 6.8"<br/>Dynamic AMOLED 2X<br/>Snapdragon 8 Gen 4<br/>Camera 200MP<br/>Pin 5000mAh<br/>Bút S Pen tích hợp',
                 'guarantee' => '12 tháng',
                 'status' => 'active',
                 'image' => 'galaxy-s25-ultra-xanh.jpg'
@@ -127,7 +127,7 @@ class DatabaseSeeder extends Seeder
                 'discount' => 10,
                 'quantity' => 80,
                 'description' => 'OPPO Reno14 F màu hồng thời trang với thiết kế mỏng nhẹ và camera chụp chân dung xuất sắc',
-                'detail' => 'Màn hình 6.7" AMOLED 120Hz, MediaTek Dimensity 6300, Camera 50MP AI, Pin 5000mAh, Sạc nhanh 45W',
+                'detail' => 'Màn hình 6.7"<br/>AMOLED 120Hz<br/>MediaTek<br/>Dimensity 6300<br/>Camera 50MP AI<br/>Pin 5000mAh<br/>Sạc nhanh 45W',
                 'guarantee' => '12 tháng',
                 'status' => 'active',
                 'image' => 'oppo-reno14-f-pink.jpg'
@@ -139,7 +139,7 @@ class DatabaseSeeder extends Seeder
                 'discount' => 8,
                 'quantity' => 60,
                 'description' => 'Samsung Galaxy S25 FE màu xanh dương với hiệu năng mạnh mẽ và giá cả phải chăng',
-                'detail' => 'Màn hình 6.6" Dynamic AMOLED 2X 120Hz, Exynos 2400e, Camera 50MP OIS, Pin 4500mAh, Sạc nhanh 25W',
+                'detail' => 'Màn hình 6.6"<br/>Dynamic AMOLED 2X 120Hz<br/>Exynos 2400e<br/>Camera 50MP OIS<br/>Pin 4500mAh<br/>Sạc nhanh 25W',
                 'guarantee' => '12 tháng',
                 'status' => 'active',
                 'image' => 'samsung-galaxy-s25-fe-blue.jpg'

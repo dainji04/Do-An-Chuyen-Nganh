@@ -1,11 +1,7 @@
 <?php
 
-use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return '<h1>Hello world</h1>';
 });
-
-Route::get('/products', [ProductController::class, 'getAllProducts']);
-Route::get('/products/{id}', [ProductController::class, 'getProductById']);
