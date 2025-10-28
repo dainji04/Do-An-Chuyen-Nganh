@@ -1,0 +1,108 @@
+<div class="container mt-16 max-w-[calc(100%-12vw)] mx-auto mb-20">
+  <app-breadcrumb
+    [items]="[
+      { label: 'Home', url: '/' },
+      { label: 'Category', url: '/category' },
+      { label: product.productname }
+    ]"
+  ></app-breadcrumb>
+  <div class="introduce mb-16">
+    <div class="left">
+      <h1 class="product-name text-6xl m-0 mb-4">Mua Iphone 17 pro</h1>
+      <p class="description text-xl m-0">description</p>
+      <p class="price text-xl m-0">Từ 30.000.000 VND hoặc 1.250.000 VND/tháng x 24 tháng</p>
+    </div>
+    <div class="right"></div>
+  </div>
+  <div class="flex gap-8">
+    <div class="left h-[calc(100vh-109px)] min-h-[540px] w-[1000px] sticky top-[109px]">
+      <div class="swiper-wrapper-custom w-full h-[100%] pb-10 rounded-xl overflow-hidden">
+        <swiper-container
+          #swiper
+          class="mySwiper"
+          navigation="false"
+          pagination="true"
+          allow-touch-move="false"
+          pagination-clickable="true"
+          autoplay-delay="2500"
+          autoplay-disable-on-interaction="false"
+        >
+          @for (item of product.images; track $index) {
+          <swiper-slide>
+            <img
+              [src]="item.image"
+              alt="Product Image"
+              class="w-full max-h-[calc(100vh-109px-109px)] object-cover"
+            />
+          </swiper-slide>
+          }
+        </swiper-container>
+
+        <!-- Custom Navigation Buttons bên ngoài -->
+        <button class="custom-prev" (click)="slidePrev()">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">
+            <path
+              d="M21.559,12.062 L15.618,17.984 L21.5221,23.944 C22.105,24.533 22.1021,25.482 21.5131,26.065 C21.2211,26.355 20.8391,26.4999987 20.4571,26.4999987 C20.0711,26.4999987 19.6851,26.352 19.3921,26.056 L12.4351,19.034 C11.8531,18.446 11.8551,17.4999987 12.4411,16.916 L19.4411,9.938 C20.0261,9.353 20.9781,9.354 21.5621,9.941 C22.1471,10.528 22.1451,11.478 21.5591,12.062 L21.559,12.062 Z"
+            ></path>
+          </svg>
+        </button>
+
+        <button class="custom-next" (click)="slideNext()">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">
+            <path
+              d="M23.5587,16.916 C24.1447,17.4999987 24.1467,18.446 23.5647,19.034 L16.6077,26.056 C16.3147,26.352 15.9287,26.4999987 15.5427,26.4999987 C15.1607,26.4999987 14.7787,26.355 14.4867,26.065 C13.8977,25.482 13.8947,24.533 14.4777,23.944 L20.3818,17.984 L14.4408,12.062 C13.8548,11.478 13.8528,10.5279 14.4378,9.941 C15.0218,9.354 15.9738,9.353 16.5588,9.938 L23.5588,16.916 L23.5587,16.916 Z"
+            ></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="right w-full h-[1500px] pt-8">
+      <nz-ribbon
+        [nzText]="product.quantity > 0 ? 'In Stock' : 'Out of Stock'"
+        [nzColor]="product.quantity > 0 ? 'green' : 'red'"
+      >
+        <h1 class="product-name text-3xl font-bold mb-4 w-[80%]">
+          {{ product.productname }}
+        </h1>
+      </nz-ribbon>
+      <p class="price text-2xl font-semibold">
+        Chỉ với
+        <span class="text-red-600"> {{ product.price | currency : 'VND' : '' : '1.0-0' }}VNĐ</span>
+      </p>
+      <div class="place-order flex gap-4 mt-6">
+        <button
+          class="!rounded-lg"
+          nz-button
+          nzType="default"
+          (click)="loadAddToCart()"
+          [nzLoading]="isLoadingAddToCart"
+        >
+          <nz-icon nzType="shopping-cart" />
+          Add to Cart
+        </button>
+        <button
+          class="!rounded-lg"
+          nz-button
+          nzType="primary"
+          (click)="loadOrderNow()"
+          [nzLoading]="isLoadingOrder"
+        >
+          Buy Now
+        </button>
+      </div>
+      <nz-divider></nz-divider>
+      <div class="description">
+        <h2 class="text-2xl font-bold mb-4">Product Description</h2>
+        <p class="text-base leading-7 text-justify">
+          {{ product.description }}
+        </p>
+      </div>
+      <nz-divider></nz-divider>
+      <div class="detail">
+        <h2 class="text-2xl font-bold mb-4">Product Detail</h2>
+        <p [innerHTML]="product.detail" class="text-base leading-7 text-justify"></p>
+      </div>
+    </div>
+  </div>
+  <app-faq></app-faq>
+</div>

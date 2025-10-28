@@ -1,0 +1,32 @@
+.swiper-wrapper-custom {
+  position: relative;
+}
+
+.custom-prev,
+.custom-next {
+  position: absolute;
+  z-index: 10;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  background-size: contain;
+  background-repeat: no-repeat;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #d2d2d7a3;
+  text-align: center;
+  border-radius: 50%;
+
+  & svg {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+.custom-prev {
+  left: 20px;
+}
+
+.custom-next {
+  right: 20px;
+}

@@ -7,11 +7,16 @@ import { simpleDataProduct } from '../../types/product';
   providedIn: 'root',
 })
 export class Products {
-  private apiUrl = 'http://localhost:8000/products';
+  private apiUrl = 'http://localhost:8000/api/products';
 
   constructor(private http: HttpClient) {}
 
   getProducts(): Observable<simpleDataProduct> {
     return this.http.get<simpleDataProduct>(this.apiUrl);
+  }
+
+  getProductById(id: number): Observable<any> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.get<any>(url);
   }
 }
