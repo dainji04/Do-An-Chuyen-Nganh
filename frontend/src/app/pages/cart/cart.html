@@ -1,0 +1,143 @@
+<div class="cart-container">
+  <div class="cart-wrapper">
+    <!-- Header -->
+    <div class="cart-header">
+      <h1 class="cart-title">
+        <span nz-icon nzType="shopping-cart" nzTheme="outline"></span>
+        Giỏ hàng của bạn
+      </h1>
+      <p class="cart-subtitle">{{ cartItems.length }} sản phẩm</p>
+    </div>
+
+    <!-- Empty Cart -->
+    <div *ngIf="cartItems.length === 0 && !loading" class="empty-cart">
+      <nz-empty nzNotFoundContent="Giỏ hàng trống" [nzNotFoundImage]="'simple'">
+        <p class="empty-description">Bạn chưa có sản phẩm nào trong giỏ hàng</p>
+        <button nz-button nzType="primary" nzSize="large" class="shop-now-btn" routerLink="/home">
+          <span nz-icon nzType="shopping" nzTheme="outline"></span>
+          Tiếp tục mua sắm
+        </button>
+      </nz-empty>
+    </div>
+
+    <!-- Cart Content -->
+    <div *ngIf="cartItems.length > 0" class="cart-content">
+      <!-- Cart Items -->
+      <div class="cart-items">
+        <div class="items-header">
+          <h2>Sản phẩm</h2>
+          <button nz-button nzType="text" nzDanger (click)="clearCart()" class="clear-cart-btn">
+            <span nz-icon nzType="delete" nzTheme="outline"></span>
+            Xóa tất cả
+          </button>
+        </div>
+
+        <div class="items-list">
+          <div *ngFor="let item of cartItems" class="cart-item">
+            <!-- Product Image -->
+            <div class="item-image">
+              <img
+                [src]="'/' + item.image"
+                [alt]="item.name"
+                (error)="$any($event.target).src = '/placeholder.png'"
+              />
+            </div>
+
+            <!-- Product Info -->
+            <div class="item-info">
+              <h3 class="item-name">
+                <a [routerLink]="['/product', item.id]">
+                  {{ item.name }}
+                </a>
+              </h3>
+              <p class="item-description">{{ item.description }}</p>
+              <div class="item-price">
+                {{ formatCurrency(item.price) }}
+              </div>
+            </div>
+
+            <!-- Quantity Controls -->
+            <div class="item-quantity">
+              <label>Số lượng:</label>
+              <nz-input-number
+                [(ngModel)]="item.quantity"
+                [nzMin]="1"
+                [nzMax]="99"
+                [nzStep]="1"
+                (ngModelChange)="updateQuantity(item, $event)"
+              ></nz-input-number>
+            </div>
+
+            <!-- Item Total -->
+            <div class="item-total">
+              <div class="total-label">Tổng:</div>
+              <div class="total-price">
+                {{ formatCurrency(getItemTotal(item)) }}
+              </div>
+            </div>
+
+            <!-- Remove Button -->
+            <div class="item-actions">
+              <button
+                nz-button
+                nzType="text"
+                nzDanger
+                (click)="removeItem(item)"
+                class="remove-btn"
+              >
+                <span nz-icon nzType="close-circle" nzTheme="outline"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="order-summary">
+        <div class="summary-card">
+          <h2 class="summary-title">Tóm tắt đơn hàng</h2>
+
+          <div class="summary-row">
+            <span>Tạm tính:</span>
+            <span>{{ formatCurrency(getSubtotal()) }}</span>
+          </div>
+
+          <div class="summary-row">
+            <span>Phí vận chuyển:</span>
+            <span>{{ formatCurrency(getShippingFee()) }}</span>
+          </div>
+
+          <div class="summary-divider"></div>
+
+          <div class="summary-row summary-total">
+            <span>Tổng cộng:</span>
+            <span class="total-amount">{{ formatCurrency(getTotal()) }}</span>
+          </div>
+
+          <button
+            nz-button
+            nzType="primary"
+            nzSize="large"
+            nzBlock
+            class="checkout-btn"
+            (click)="checkout()"
+          >
+            <span nz-icon nzType="credit-card" nzTheme="outline"></span>
+            Thanh toán
+          </button>
+
+          <button nz-button nzSize="large" nzBlock class="continue-shopping-btn" routerLink="/home">
+            <span nz-icon nzType="arrow-left" nzTheme="outline"></span>
+            Tiếp tục mua sắm
+          </button>
+
+          <!-- Security Badge -->
+          <div class="security-badge">
+            <span nz-icon nzType="safety-certificate" nzTheme="outline"></span>
+            <span>Thanh toán an toàn & bảo mật</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

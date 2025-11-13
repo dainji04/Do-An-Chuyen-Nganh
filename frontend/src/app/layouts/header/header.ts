@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { RouterLink } from '@angular/router';
 import { User } from '../../types/user';
@@ -6,19 +6,28 @@ import { Auth } from '../../services/auth/auth';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { CartService } from '../../services/cart/cart';
+import { Observable } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-header',
-  imports: [NzIconModule, RouterLink, NzAvatarModule, NzDropDownModule, NzBadgeModule],
+  imports: [NzIconModule, RouterLink, NzAvatarModule, NzDropDownModule, NzBadgeModule, AsyncPipe],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
-export class Header {
+export class Header implements OnInit {
   user: User | null = null;
+  public cartCount$!: Observable<number>;
 
   private authService: Auth = inject(Auth);
+  private cartService: CartService = inject(CartService);
   constructor() {
     this.user = this.authService.getCurrentUser();
+  }
+
+  async ngOnInit(): Promise<void> {
+    this.cartCount$ = this.cartService.cartCount$;
   }
 
   logout(event: Event): void {

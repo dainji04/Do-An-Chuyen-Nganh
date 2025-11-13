@@ -22,6 +22,12 @@ import {
   EyeInvisibleOutline,
   SettingOutline,
   LogoutOutline,
+  DeleteOutline,
+  CloseCircleOutline,
+  CreditCardOutline,
+  ArrowLeftOutline,
+  SafetyCertificateOutline,
+  ShoppingOutline,
 } from '@ant-design/icons-angular/icons';
 import { AuthInterceptor } from './interceptor/auth';
 
@@ -37,6 +43,12 @@ const icons = [
   EyeInvisibleOutline,
   SettingOutline,
   LogoutOutline,
+  DeleteOutline,
+  CloseCircleOutline,
+  CreditCardOutline,
+  ArrowLeftOutline,
+  SafetyCertificateOutline,
+  ShoppingOutline,
 ];
 
 export const appConfig: ApplicationConfig = {
