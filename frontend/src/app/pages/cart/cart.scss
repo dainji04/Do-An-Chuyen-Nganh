@@ -299,11 +299,13 @@
     font-size: 16px;
     font-weight: 600;
     margin-top: 24px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &:hover {
-      background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+      transform: scale(1.02);
     }
   }
 

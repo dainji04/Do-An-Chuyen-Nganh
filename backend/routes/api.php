@@ -26,5 +26,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
 
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
+
+    Route::delete('/cart/clear', [CartController::class, 'clearCart']);
     Route::apiResource('cart', CartController::class);
+
+    Route::post('/momo-payment', [App\Http\Controllers\MomoController::class, 'momoPayment']);
 });

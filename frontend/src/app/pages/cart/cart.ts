@@ -11,6 +11,8 @@ import { FormsModule } from '@angular/forms';
 import { CartService } from '../../services/cart/cart';
 
 import { CartItem } from '../../types/cart';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzRadioModule } from 'ng-zorro-antd/radio';
 
 @Component({
   selector: 'app-cart',
@@ -24,6 +26,9 @@ import { CartItem } from '../../types/cart';
     NzInputNumberModule,
     NzEmptyModule,
     NzModalModule,
+    FormsModule,
+    NzInputModule,
+    NzRadioModule,
   ],
   templateUrl: './cart.html',
   styleUrl: './cart.scss',
@@ -31,6 +36,7 @@ import { CartItem } from '../../types/cart';
 export class Cart implements OnInit {
   cartItems: CartItem[] = [];
   loading = false;
+  radioValue = 'Momo';
 
   constructor(
     private message: NzMessageService,
@@ -58,6 +64,28 @@ export class Cart implements OnInit {
     });
   }
 
+  removeItem(item: CartItem): void {
+    this.modal.confirm({
+      nzTitle: 'Xác nhận xóa',
+      nzContent: `Bạn có chắc muốn xóa "${item.name}" khỏi giỏ hàng?`,
+      nzOkText: 'Xóa',
+      nzOkDanger: true,
+      nzCancelText: 'Hủy',
+      nzOnOk: () => {
+        this.cartService.removeFromCart(item.product_id).subscribe({
+          next: () => {
+            this.cartItems = this.cartItems.filter((i) => i.id !== item.id);
+            this.message.success('Đã xóa sản phẩm khỏi giỏ hàng');
+          },
+          error: (error) => {
+            console.error('Error removing item:', error);
+            this.message.error('Không thể xóa sản phẩm');
+          },
+        });
+      },
+    });
+  }
+
   formatCurrency(amount: number): string {
     return new Intl.NumberFormat('vi-VN', {
       style: 'currency',
@@ -81,13 +109,44 @@ export class Cart implements OnInit {
     return this.getSubtotal() + this.getShippingFee();
   }
 
+  clearCart(): void {
+    this.modal.confirm({
+      nzTitle: 'Xác nhận xóa toàn bộ giỏ hàng',
+      nzContent: 'Bạn có chắc muốn xóa tất cả sản phẩm trong giỏ hàng?',
+      nzOkText: 'Xóa tất cả',
+      nzOkDanger: true,
+      nzCancelText: 'Hủy',
+      nzOnOk: () => {
+        this.cartService.clearCart().subscribe({
+          next: () => {
+            this.cartItems = [];
+            this.message.success('Đã xóa toàn bộ giỏ hàng');
+          },
+          error: (error) => {
+            console.error('Error clearing cart:', error);
+            this.message.error('Không thể xóa giỏ hàng');
+          },
+        });
+      },
+    });
+  }
+
   checkout(): void {
     if (this.cartItems.length === 0) {
       this.message.warning('Giỏ hàng trống');
       return;
     }
 
-    // TODO: Navigate to checkout page
-    this.message.info('Chức năng thanh toán đang được phát triển');
+    const amount = this.getTotal().toString();
+    const payUrl = 'http://localhost:3000/home';
+
+    this.cartService.momoPayment(amount, payUrl).subscribe({
+      next: (response) => {
+        window.location.href = response.payUrl;
+      },
+      error: (error) => {
+        console.error('Error during Momo payment:', error);
+      },
+    });
   }
 }

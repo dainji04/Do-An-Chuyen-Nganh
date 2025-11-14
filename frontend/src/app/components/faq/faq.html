@@ -4,7 +4,7 @@
   <nz-collapse nzAccordion>
     @for (item of faqData; track item) {
     <nz-collapse-panel [nzHeader]="item.question" [nzActive]="item.active">
-      <p>{{ item.answer }}</p>
+      <p class="text-justify">{{ item.answer }}</p>
     </nz-collapse-panel>
     }
   </nz-collapse>

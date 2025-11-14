@@ -64,8 +64,8 @@
                 [nzMin]="1"
                 [nzMax]="99"
                 [nzStep]="1"
-                (ngModelChange)="updateQuantity(item, $event)"
               ></nz-input-number>
+              <!-- (ngModelChange)="updateQuantity(item, $event)" -->
             </div>
 
             <!-- Item Total -->
@@ -112,6 +112,14 @@
           <div class="summary-row summary-total">
             <span>Tổng cộng:</span>
             <span class="total-amount">{{ formatCurrency(getTotal()) }}</span>
+          </div>
+
+          <div class="option-order">
+            <nz-radio-group [(ngModel)]="radioValue">
+              <label nz-radio nzValue="Momo" class="text-xl">Thanh toán với Momo</label> <br />
+              <label nz-radio nzValue="Cod">Thanh toán Cod</label> <br />
+              <label nz-radio nzValue="thanhtoantaicho">Thanh toán khi nhận hàng</label> <br />
+            </nz-radio-group>
           </div>
 
           <button

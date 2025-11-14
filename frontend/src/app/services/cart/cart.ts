@@ -35,11 +35,66 @@ export class CartService {
     }
   }
 
+  momoPayment(amount: string, payUrl: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/momo-payment`, {
+      amount: amount,
+      payUrl: payUrl,
+    });
+  }
+
   /**
    * Get all cart items
    */
   getCart(): Observable<CartResponse> {
     return this.http.get<CartResponse>(`${this.apiUrl}/cart`);
+  }
+
+  /**
+   * Add product to cart
+   */
+  addToCart(productId: number, quantity: number = 1): Observable<any> {
+    return this.http
+      .post<any>(`${this.apiUrl}/cart`, {
+        product_id: productId,
+        quantity: quantity,
+      })
+      .pipe(
+        tap((response) => {
+          this.cartCountSubject.next(response.cartCount);
+        })
+      );
+  }
+
+  /**
+   * Update cart item quantity
+   */
+  updateCartItem(productId: number, quantity: number): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/cart/update`, {
+      product_id: productId,
+      quantity: quantity,
+    });
+  }
+
+  /**
+   * Remove item from cart
+   */
+  removeFromCart(productId: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/cart/${productId}`).pipe(
+      tap((response) => {
+        this.cartCountSubject.next(response.cartCount);
+      })
+    );
+  }
+
+  /**
+   * Clear entire cart
+   */
+  clearCart(): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/cart/clear`).pipe(
+      tap((response) => {
+        this.cartCountSubject.next(response.cartCount);
+      })
+    );
   }
 
   /**

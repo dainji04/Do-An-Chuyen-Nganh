@@ -10,9 +10,9 @@
     </a>
   </div>
   <nav class="header__nav flex justify-center items-center gap-8">
-    <a routerLink="/home">Home</a>
-    <a routerLink="/about">About</a>
-    <a routerLink="/contact">Contact</a>
+    <a routerLink="/home" class="hover:underline">Home</a>
+    <a routerLink="/about" class="hover:underline">About</a>
+    <a routerLink="/contact" class="hover:underline">Contact</a>
   </nav>
   <div class="auth flex items-center gap-8">
     <nav class="flex justify-center items-center gap-8">
@@ -23,7 +23,12 @@
           ></path>
         </svg>
       </button>
-      <nz-badge nzSize="small" [nzCount]="(cartCount$ | async) ?? 0" [nzOffset]="[-15, 30]">
+      <nz-badge
+        nzSize="small"
+        nzShowZero
+        [nzCount]="(cartCount$ | async) ?? 0"
+        [nzOffset]="[-15, 30]"
+      >
         <button routerLink="cart">
           <svg height="44" viewBox="0 0 14 44" width="14" xmlns="http://www.w3.org/2000/svg">
             <path

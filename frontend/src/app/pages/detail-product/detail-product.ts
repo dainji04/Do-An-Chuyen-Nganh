@@ -10,6 +10,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Products } from '../../services/products/products';
 import { DetailProduct as typeProduct } from '../../types/product';
 import { CurrencyPipe } from '@angular/common';
+import { CartService } from '../../services/cart/cart';
+
+// ng zorro modules
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzCardModule } from 'ng-zorro-antd/card';
@@ -47,6 +50,7 @@ export class DetailProduct implements OnInit {
   product!: typeProduct;
   @ViewChild('swiper') swiperRef!: ElementRef;
   private productService: any = inject(Products);
+  private cartService = inject(CartService);
   dataFormOrder: OrderForm = {
     productId: 0,
     quantity: 1,
@@ -77,14 +81,25 @@ export class DetailProduct implements OnInit {
 
   loadAddToCart(): void {
     this.isLoadingAddToCart = true;
-    setTimeout(() => {
-      this.isLoadingAddToCart = false;
-      this.createNotification(
-        'success',
-        'Added to Cart',
-        'The product has been added to your cart successfully.'
-      );
-    }, 5000);
+    this.cartService.addToCart(this.productId).subscribe({
+      next: () => {
+        this.createNotification(
+          'success',
+          'Added to Cart',
+          'The product has been added to your cart successfully.'
+        );
+        this.isLoadingAddToCart = false;
+      },
+      error: (error) => {
+        this.createNotification(
+          'error',
+          'Error',
+          'There was an error adding the product to your cart.'
+        );
+        console.error('Error adding to cart:', error);
+        this.isLoadingAddToCart = false;
+      },
+    });
   }
 
   loadOrderNow(): void {
