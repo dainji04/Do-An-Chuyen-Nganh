@@ -1,0 +1,4 @@
+Số thẻ: 9704 0000 0000 0018
+Tên chủ thẻ: NGUYEN VAN A
+Ngày hết hạn: 03/07
+OTP: 123456 (hoặc OTP ngẫu nhiên trong test)
