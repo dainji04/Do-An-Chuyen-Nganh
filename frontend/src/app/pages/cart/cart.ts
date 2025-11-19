@@ -136,6 +136,11 @@ export class Cart implements OnInit {
       this.message.warning('Giỏ hàng trống');
       return;
     }
+    // amount is not grater than 50,000,000 VND
+    if (this.getTotal() > 50000000) {
+      this.message.warning('Số tiền thanh toán không được vượt quá 50,000,000 VND');
+      return;
+    }
 
     const amount = this.getTotal().toString();
     const payUrl = 'http://localhost:3000/home';
