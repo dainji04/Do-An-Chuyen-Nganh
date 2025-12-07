@@ -105,11 +105,12 @@ class DatabaseSeeder extends Seeder
             $promotionModels[] = Promotion::create($promotion);
         }
 
+
         // Tạo Products (dựa trên ảnh thực tế trong frontend/public)
         $products = [
             // Smartphones - Sản phẩm thực tế có ảnh
             [
-                'category_id' => $categoryModels[1]->id,
+                'category_id' => $categoryModels[0]->id,
                 'productname' => 'Samsung Galaxy S25 Ultra Xanh',
                 'price' => 27990000,
                 'discount' => 5,
@@ -133,7 +134,7 @@ class DatabaseSeeder extends Seeder
                 'image' => 'oppo-reno14-f-pink.jpg'
             ],
             [
-                'category_id' => $categoryModels[1]->id,
+                'category_id' => $categoryModels[0]->id,
                 'productname' => 'Samsung Galaxy S25 FE Blue',
                 'price' => 16990000,
                 'discount' => 8,
@@ -147,27 +148,27 @@ class DatabaseSeeder extends Seeder
 
             // Các sản phẩm khác (không có ảnh thực tế)
             // Flagship cao cấp
-            ['category_id' => $categoryModels[1]->id, 'productname' => 'Samsung Galaxy S24 Ultra', 'price' => 33990000, 'discount' => 5, 'quantity' => 50, 'description' => 'Điện thoại AI tiên tiến nhất với bút S Pen quyền năng', 'detail' => 'Snapdragon 8 Gen 3 for Galaxy, 12GB RAM, 256GB, Camera 200MP, Titanium Frame', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'samsung-s24-ultra.webp'],
-            ['category_id' => $categoryModels[1]->id, 'productname' => 'Xiaomi 14 Ultra', 'price' => 29990000, 'discount' => 0, 'quantity' => 30, 'description' => 'Đỉnh cao nhiếp ảnh di động kết hợp cùng Leica', 'detail' => 'Snapdragon 8 Gen 3, Cảm biến 1 inch, Camera Leica Summilux, 16GB RAM, 512GB', 'guarantee' => '18 tháng', 'status' => 'active', 'image' => 'xiaomi-14-ultra.webp'],
+            ['category_id' => $categoryModels[0]->id, 'productname' => 'Samsung Galaxy S24 Ultra', 'price' => 33990000, 'discount' => 5, 'quantity' => 50, 'description' => 'Điện thoại AI tiên tiến nhất với bút S Pen quyền năng', 'detail' => 'Snapdragon 8 Gen 3 for Galaxy, 12GB RAM, 256GB, Camera 200MP, Titanium Frame', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'samsung-s24-ultra.webp'],
+            ['category_id' => $categoryModels[2]->id, 'productname' => 'Xiaomi 14 Ultra', 'price' => 29990000, 'discount' => 0, 'quantity' => 30, 'description' => 'Đỉnh cao nhiếp ảnh di động kết hợp cùng Leica', 'detail' => 'Snapdragon 8 Gen 3, Cảm biến 1 inch, Camera Leica Summilux, 16GB RAM, 512GB', 'guarantee' => '18 tháng', 'status' => 'active', 'image' => 'xiaomi-14-ultra.webp'],
 
             // Điện thoại gập (Foldable)
-            ['category_id' => $categoryModels[1]->id, 'productname' => 'Samsung Galaxy Z Fold 6', 'price' => 41990000, 'discount' => 8, 'quantity' => 20, 'description' => 'Điện thoại gập mở quyền năng, đa nhiệm như PC', 'detail' => 'Màn hình gập 7.6", Snapdragon 8 Gen 3, Galaxy AI, Kháng nước IP48', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'galaxy-z-fold-6.webp'],
+            ['category_id' => $categoryModels[0]->id, 'productname' => 'Samsung Galaxy Z Fold 6', 'price' => 41990000, 'discount' => 8, 'quantity' => 20, 'description' => 'Điện thoại gập mở quyền năng, đa nhiệm như PC', 'detail' => 'Màn hình gập 7.6", Snapdragon 8 Gen 3, Galaxy AI, Kháng nước IP48', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'galaxy-z-fold-6.webp'],
             ['category_id' => $categoryModels[1]->id, 'productname' => 'OPPO Find N3 Flip', 'price' => 22990000, 'discount' => 10, 'quantity' => 25, 'description' => 'Thiết kế gập vỏ sò thời thượng, camera Hasselblad', 'detail' => 'Dimensity 9200, Màn hình phụ lớn, Camera chuyên nghiệp, Sạc nhanh 44W', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'oppo-find-n3-flip.png'],
 
             // Dòng Pixel & Sony (Niche/Camera)
-            ['category_id' => $categoryModels[1]->id, 'productname' => 'Google Pixel 8 Pro', 'price' => 20500000, 'discount' => 0, 'quantity' => 15, 'description' => 'Trải nghiệm Android thuần khiết và nhiếp ảnh thuật toán đỉnh cao', 'detail' => 'Google Tensor G3, Camera AI Magic Editor, 7 năm cập nhật phần mềm', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'pixel-8-pro.jpg'],
-            ['category_id' => $categoryModels[1]->id, 'productname' => 'Sony Xperia 1 V', 'price' => 28990000, 'discount' => 0, 'quantity' => 10, 'description' => 'Điện thoại dành cho nhà sáng tạo nội dung chuyên nghiệp', 'detail' => 'Màn hình 4K OLED 21:9, Cảm biến Exmor T, Jack 3.5mm, Khe thẻ nhớ SD', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'sony-xperia-1-v.webp'],
+            ['category_id' => $categoryModels[3]->id, 'productname' => 'Google Pixel 8 Pro', 'price' => 20500000, 'discount' => 0, 'quantity' => 15, 'description' => 'Trải nghiệm Android thuần khiết và nhiếp ảnh thuật toán đỉnh cao', 'detail' => 'Google Tensor G3, Camera AI Magic Editor, 7 năm cập nhật phần mềm', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'pixel-8-pro.jpg'],
+            ['category_id' => $categoryModels[4]->id, 'productname' => 'Sony Xperia 1 V', 'price' => 28990000, 'discount' => 0, 'quantity' => 10, 'description' => 'Điện thoại dành cho nhà sáng tạo nội dung chuyên nghiệp', 'detail' => 'Màn hình 4K OLED 21:9, Cảm biến Exmor T, Jack 3.5mm, Khe thẻ nhớ SD', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'sony-xperia-1-v.webp'],
 
             // Gaming Phone
-            ['category_id' => $categoryModels[1]->id, 'productname' => 'ASUS ROG Phone 8 Pro', 'price' => 29990000, 'discount' => 0, 'quantity' => 40, 'description' => 'Quái vật hiệu năng dành cho game thủ chuyên nghiệp', 'detail' => 'Snapdragon 8 Gen 3, Màn hình 165Hz, AniMe Vision, AirTrigger, Pin 5500mAh', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'rog-phone-8-pro.webp'],
+            ['category_id' => $categoryModels[5]->id, 'productname' => 'ASUS ROG Phone 8 Pro', 'price' => 29990000, 'discount' => 0, 'quantity' => 40, 'description' => 'Quái vật hiệu năng dành cho game thủ chuyên nghiệp', 'detail' => 'Snapdragon 8 Gen 3, Màn hình 165Hz, AniMe Vision, AirTrigger, Pin 5500mAh', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'rog-phone-8-pro.webp'],
 
             // Tầm trung & Cận cao cấp (Mid-range)
-            ['category_id' => $categoryModels[1]->id, 'productname' => 'Samsung Galaxy A55 5G', 'price' => 9990000, 'discount' => 5, 'quantity' => 100, 'description' => 'Thiết kế kim loại sang trọng, hiệu năng ổn định', 'detail' => 'Exynos 1480, Màn hình Super AMOLED 120Hz, Camera 50MP, Kháng nước IP67', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'galaxy-a55.jpg'],
-            ['category_id' => $categoryModels[1]->id, 'productname' => 'Xiaomi Redmi Note 13 Pro', 'price' => 7290000, 'discount' => 10, 'quantity' => 120, 'description' => 'Ông vua phân khúc tầm trung với camera 200MP', 'detail' => 'Camera 200MP OIS, Sạc nhanh 67W, Màn hình AMOLED viền siêu mỏng', 'guarantee' => '18 tháng', 'status' => 'active', 'image' => 'redmi-note-13-pro.jpg'],
+            ['category_id' => $categoryModels[0]->id, 'productname' => 'Samsung Galaxy A55 5G', 'price' => 9990000, 'discount' => 5, 'quantity' => 100, 'description' => 'Thiết kế kim loại sang trọng, hiệu năng ổn định', 'detail' => 'Exynos 1480, Màn hình Super AMOLED 120Hz, Camera 50MP, Kháng nước IP67', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'galaxy-a55.jpg'],
+            ['category_id' => $categoryModels[2]->id, 'productname' => 'Xiaomi Redmi Note 13 Pro', 'price' => 7290000, 'discount' => 10, 'quantity' => 120, 'description' => 'Ông vua phân khúc tầm trung với camera 200MP', 'detail' => 'Camera 200MP OIS, Sạc nhanh 67W, Màn hình AMOLED viền siêu mỏng', 'guarantee' => '18 tháng', 'status' => 'active', 'image' => 'redmi-note-13-pro.jpg'],
 
             // Giá rẻ (Budget)
-            ['category_id' => $categoryModels[1]->id, 'productname' => 'Samsung Galaxy A15', 'price' => 4990000, 'discount' => 0, 'quantity' => 150, 'description' => 'Lựa chọn hoàn hảo trong phân khúc phổ thông', 'detail' => 'Màn hình Super AMOLED, Helio G99, Pin 5000mAh, Sạc nhanh 25W', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'galaxy-a15.jpg'],
-            ['category_id' => $categoryModels[1]->id, 'productname' => 'Realme C67', 'price' => 3990000, 'discount' => 5, 'quantity' => 80, 'description' => 'Thiết kế đẹp, camera sắc nét trong tầm giá', 'detail' => 'Snapdragon 685, Camera 108MP, Màn hình 90Hz, Pin 5000mAh', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'realme-c67.webp']
+            ['category_id' => $categoryModels[0]->id, 'productname' => 'Samsung Galaxy A15', 'price' => 4990000, 'discount' => 0, 'quantity' => 150, 'description' => 'Lựa chọn hoàn hảo trong phân khúc phổ thông', 'detail' => 'Màn hình Super AMOLED, Helio G99, Pin 5000mAh, Sạc nhanh 25W', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'galaxy-a15.jpg'],
+            ['category_id' => $categoryModels[6]->id, 'productname' => 'Realme C67', 'price' => 3990000, 'discount' => 5, 'quantity' => 80, 'description' => 'Thiết kế đẹp, camera sắc nét trong tầm giá', 'detail' => 'Snapdragon 685, Camera 108MP, Màn hình 90Hz, Pin 5000mAh', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'realme-c67.webp']
         ];
 
         $productModels = [];

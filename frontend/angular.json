@@ -28,7 +28,11 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.scss", "node_modules/ng-zorro-antd/ng-zorro-antd.min.css"],
+            "styles": [
+              "src/styles.scss",
+              "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
+              "node_modules/aos/dist/aos.css"
+            ],
             "scripts": ["src/assets/js/SmoothScroll.js"]
           },
           "configurations": {

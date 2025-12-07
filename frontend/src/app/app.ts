@@ -5,6 +5,7 @@ import { Footer } from './layouts/footer/footer';
 import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs/operators';
 
+import AOS from 'aos';
 declare var SmoothScroll: any;
 
 @Component({
@@ -36,6 +37,14 @@ export class App implements OnInit {
         accelerationMax: 3,
         keyboardSupport: true,
         arrowScroll: 50,
+      });
+
+      AOS.init({
+        duration: 1000, // Animation duration
+        easing: 'ease-in-out', // Easing function
+        once: true, // Animation chỉ chạy 1 lần
+        offset: 120, // Offset từ trigger point
+        delay: 100, // Delay animation
       });
     }
   }

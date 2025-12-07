@@ -3,21 +3,23 @@
     class="introduce flex justify-between items-center mx-[calc(-268.46154px+28.36538vw)] mt-[80px] mb-16"
   >
     <div class="left max-w-[640px]">
-      <h1 class="text-[80px] capitalize font-semibold">cửa hàng</h1>
+      <h1 class="text-[80px] capitalize font-semibold" data-aos="fade-right">cửa hàng</h1>
     </div>
     <div class="right">
-      <h3 class="text-[28px] font-semibold max-w-[317px] text-right">
+      <h3 data-aos="fade-up" class="text-[28px] font-semibold max-w-[317px] text-right">
         Cách tốt nhất để mua sản phẩm bạn thích.
       </h3>
     </div>
   </div>
 
-  <app-product-nav></app-product-nav>
+  <app-product-nav data-aos="fade-up" data-aos-delay="100"></app-product-nav>
 
   <div class="new-products ml-[calc(-268.46154px+28.36538vw)]">
     <app-title-list-product
       title="Sản phẩm mới."
       subtitle="Xem ngay có gì mới."
+      data-aos="fade-up"
+      data-aos-delay="200"
     ></app-title-list-product>
     <div>
       <app-list-product [products]="products"></app-list-product>
@@ -29,9 +31,11 @@
     <app-title-list-product
       title="Sản phẩm Samsung."
       subtitle="Xem ngay sản phẩm Samsung."
+      data-aos="fade-up"
+      data-aos-delay="100"
     ></app-title-list-product>
-    <div class="mr-[calc(-268.46154px+28.36538vw)]">
-      <app-list-product-type [categoryId]="2" categoryName="Samsung"></app-list-product-type>
+    <div class="mr-[calc(-268.46154px+28.36538vw)]" data-aos="fade-up" data-aos-delay="200">
+      <app-list-product-type [categoryId]="0" categoryName="samsung"></app-list-product-type>
     </div>
   </div>
 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -11,13 +12,18 @@ class ProductController extends Controller
     public function getAllProducts(Request $request)
     {
         $query = DB::table('products');
-
+        $cateId = null;
         // Filter by category if provided
         if ($request->has('category')) {
-            $query->where('category_id', $request->category);
+            $cateId = Category::where('categoryname', $request->category)->value('id');
+            if ($cateId) {
+                $query->where('category_id', $cateId);
+            } else {
+                return response()->json([], 200); // No products if category doesn't exist
+            }
         }
 
-        $products = $query->simplePaginate(10);
+        $products = $cateId ? $query->simplePaginate(4) : $query->simplePaginate(8);
         return response()->json($products);
     }
 

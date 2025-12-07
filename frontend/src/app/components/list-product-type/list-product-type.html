@@ -5,7 +5,11 @@
     } @else if (products.length === 0) {
     <p class="no-products">Không có sản phẩm nào</p>
     } @else { @for (product of products; track product.id) {
-    <app-product-card-type [product]="product"></app-product-card-type>
+    <app-product-card-type
+      data-aos="fade-up"
+      [attr.data-aos-delay]="200 * $index"
+      [product]="product"
+    ></app-product-card-type>
     } }
   </div>
 </div>

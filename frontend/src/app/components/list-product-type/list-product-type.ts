@@ -22,10 +22,10 @@ export class ListProductType implements OnInit {
   }
 
   loadProducts() {
-    if (!this.categoryId) return;
+    if (!this.categoryName) return;
 
     this.isLoading = true;
-    this.productService.getProductsByCategory(this.categoryId).subscribe({
+    this.productService.getProductsByCategory(this.categoryName).subscribe({
       next: (data) => {
         this.products = data.data;
         this.isLoading = false;
