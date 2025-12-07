@@ -28,8 +28,8 @@ class DatabaseSeeder extends Seeder
             'address' => '123 Admin Street, HCM City',
             'status' => 'active',
             'role' => 'admin',
+            'avatarimage' => 'https://ui-avatars.com/api/?name=Admin&background=random&color=fff',
             'password' => Hash::make('password123'),
-            'avatarimage' => 'admin-avatar.jpg'
         ]);
 
         $users = [];
@@ -50,13 +50,13 @@ class DatabaseSeeder extends Seeder
 
         // Tạo Categories
         $categories = [
-            ['categoryname' => 'Laptop', 'description' => 'Laptops and notebooks for work and gaming'],
-            ['categoryname' => 'Smartphone', 'description' => 'Mobile phones and smartphones'],
-            ['categoryname' => 'Tablet', 'description' => 'Tablets and iPad devices'],
-            ['categoryname' => 'Accessories', 'description' => 'Computer and phone accessories'],
-            ['categoryname' => 'Gaming', 'description' => 'Gaming consoles and accessories'],
-            ['categoryname' => 'Audio', 'description' => 'Headphones, speakers and audio devices'],
-            ['categoryname' => 'Wearable', 'description' => 'Smartwatches and wearable technology']
+            ['categoryname' => 'Samsung', 'description' => 'Gã khổng lồ công nghệ Hàn Quốc với hệ sinh thái Galaxy đa dạng'],
+            ['categoryname' => 'OPPO', 'description' => 'Thương hiệu smartphone tập trung vào thiết kế và nhiếp ảnh chân dung'],
+            ['categoryname' => 'Xiaomi', 'description' => 'Sản phẩm cấu hình cao, giá tốt và hệ sinh thái thông minh'],
+            ['categoryname' => 'Google', 'description' => 'Điện thoại Pixel với trải nghiệm Android thuần khiết và AI đỉnh cao'],
+            ['categoryname' => 'Sony', 'description' => 'Thương hiệu Nhật Bản với các dòng Xperia chuyên biệt cho giải trí'],
+            ['categoryname' => 'ASUS', 'description' => 'Nổi tiếng với dòng ROG Phone chuyên game đỉnh cao'],
+            ['categoryname' => 'Realme', 'description' => 'Thương hiệu trẻ trung với các sản phẩm hiệu năng tốt trong tầm giá'],
         ];
 
         $categoryModels = [];
@@ -146,23 +146,28 @@ class DatabaseSeeder extends Seeder
             ],
 
             // Các sản phẩm khác (không có ảnh thực tế)
-            ['category_id' => $categoryModels[0]->id, 'productname' => 'Dell XPS 15', 'price' => 35000000, 'discount' => 10, 'quantity' => 30, 'description' => 'Laptop cao cấp cho doanh nhân và nhà sáng tạo nội dung', 'detail' => 'Intel Core i7-13700H, 16GB RAM, 512GB SSD, RTX 4050, Màn hình 15.6" FHD+', 'guarantee' => '24 tháng', 'status' => 'active', 'image' => 'dell-xps-15.jpg'],
-            ['category_id' => $categoryModels[0]->id, 'productname' => 'MacBook Pro 14', 'price' => 52000000, 'discount' => 5, 'quantity' => 25, 'description' => 'MacBook Pro 14 inch với chip M3 Pro mạnh mẽ', 'detail' => 'Apple M3 Pro, 18GB RAM, 512GB SSD, Màn hình Liquid Retina XDR 14.2"', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'macbook-pro-14.jpg'],
+            // Flagship cao cấp
+            ['category_id' => $categoryModels[1]->id, 'productname' => 'Samsung Galaxy S24 Ultra', 'price' => 33990000, 'discount' => 5, 'quantity' => 50, 'description' => 'Điện thoại AI tiên tiến nhất với bút S Pen quyền năng', 'detail' => 'Snapdragon 8 Gen 3 for Galaxy, 12GB RAM, 256GB, Camera 200MP, Titanium Frame', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'samsung-s24-ultra.webp'],
+            ['category_id' => $categoryModels[1]->id, 'productname' => 'Xiaomi 14 Ultra', 'price' => 29990000, 'discount' => 0, 'quantity' => 30, 'description' => 'Đỉnh cao nhiếp ảnh di động kết hợp cùng Leica', 'detail' => 'Snapdragon 8 Gen 3, Cảm biến 1 inch, Camera Leica Summilux, 16GB RAM, 512GB', 'guarantee' => '18 tháng', 'status' => 'active', 'image' => 'xiaomi-14-ultra.webp'],
 
-            ['category_id' => $categoryModels[2]->id, 'productname' => 'iPad Air M2', 'price' => 16000000, 'discount' => 0, 'quantity' => 40, 'description' => 'iPad Air với chip M2 mạnh mẽ, lý tưởng cho công việc và giải trí', 'detail' => 'Chip M2, 128GB, Màn hình Liquid Retina 10.9", Hỗ trợ Apple Pencil', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'ipad-air-m2.jpg'],
-            ['category_id' => $categoryModels[2]->id, 'productname' => 'Samsung Galaxy Tab S9', 'price' => 13000000, 'discount' => 10, 'quantity' => 35, 'description' => 'Máy tính bảng Android cao cấp kèm bút S Pen', 'detail' => '128GB, Snapdragon 8 Gen 2, Màn hình 11" Dynamic AMOLED 2X, S Pen đi kèm', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'galaxy-tab-s9.jpg'],
+            // Điện thoại gập (Foldable)
+            ['category_id' => $categoryModels[1]->id, 'productname' => 'Samsung Galaxy Z Fold 6', 'price' => 41990000, 'discount' => 8, 'quantity' => 20, 'description' => 'Điện thoại gập mở quyền năng, đa nhiệm như PC', 'detail' => 'Màn hình gập 7.6", Snapdragon 8 Gen 3, Galaxy AI, Kháng nước IP48', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'galaxy-z-fold-6.webp'],
+            ['category_id' => $categoryModels[1]->id, 'productname' => 'OPPO Find N3 Flip', 'price' => 22990000, 'discount' => 10, 'quantity' => 25, 'description' => 'Thiết kế gập vỏ sò thời thượng, camera Hasselblad', 'detail' => 'Dimensity 9200, Màn hình phụ lớn, Camera chuyên nghiệp, Sạc nhanh 44W', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'oppo-find-n3-flip.png'],
 
-            ['category_id' => $categoryModels[3]->id, 'productname' => 'AirPods Pro 2', 'price' => 6500000, 'discount' => 10, 'quantity' => 100, 'description' => 'Tai nghe không dây cao cấp với chống ồn chủ động', 'detail' => 'Chip H2, Chống ồn chủ động, Âm thanh không gian, Chống nước IPX4', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'airpods-pro-2.jpg'],
-            ['category_id' => $categoryModels[3]->id, 'productname' => 'Logitech MX Master 3S', 'price' => 2500000, 'discount' => 0, 'quantity' => 150, 'description' => 'Chuột không dây cao cấp cho năng suất tối đa', 'detail' => 'Cảm biến 8000 DPI, Kết nối đa thiết bị, Pin 70 ngày, Cuộn im lặng', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'logitech-mx-master-3s.jpg'],
+            // Dòng Pixel & Sony (Niche/Camera)
+            ['category_id' => $categoryModels[1]->id, 'productname' => 'Google Pixel 8 Pro', 'price' => 20500000, 'discount' => 0, 'quantity' => 15, 'description' => 'Trải nghiệm Android thuần khiết và nhiếp ảnh thuật toán đỉnh cao', 'detail' => 'Google Tensor G3, Camera AI Magic Editor, 7 năm cập nhật phần mềm', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'pixel-8-pro.jpg'],
+            ['category_id' => $categoryModels[1]->id, 'productname' => 'Sony Xperia 1 V', 'price' => 28990000, 'discount' => 0, 'quantity' => 10, 'description' => 'Điện thoại dành cho nhà sáng tạo nội dung chuyên nghiệp', 'detail' => 'Màn hình 4K OLED 21:9, Cảm biến Exmor T, Jack 3.5mm, Khe thẻ nhớ SD', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'sony-xperia-1-v.webp'],
 
-            ['category_id' => $categoryModels[4]->id, 'productname' => 'PlayStation 5 Slim', 'price' => 13000000, 'discount' => 0, 'quantity' => 50, 'description' => 'Máy chơi game thế hệ mới với hiệu năng vượt trội', 'detail' => '1TB SSD, Ray Tracing, 4K 120fps, Hỗ trợ VR', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'ps5-slim.jpg'],
-            ['category_id' => $categoryModels[4]->id, 'productname' => 'Xbox Series X', 'price' => 13500000, 'discount' => 0, 'quantity' => 45, 'description' => 'Console gaming mạnh mẽ từ Microsoft', 'detail' => '1TB SSD, 4K 120fps, Ray Tracing, Game Pass', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'xbox-series-x.jpg'],
+            // Gaming Phone
+            ['category_id' => $categoryModels[1]->id, 'productname' => 'ASUS ROG Phone 8 Pro', 'price' => 29990000, 'discount' => 0, 'quantity' => 40, 'description' => 'Quái vật hiệu năng dành cho game thủ chuyên nghiệp', 'detail' => 'Snapdragon 8 Gen 3, Màn hình 165Hz, AniMe Vision, AirTrigger, Pin 5500mAh', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'rog-phone-8-pro.webp'],
 
-            ['category_id' => $categoryModels[5]->id, 'productname' => 'Sony WH-1000XM5', 'price' => 8500000, 'discount' => 5, 'quantity' => 70, 'description' => 'Tai nghe chống ồn tốt nhất thị trường', 'detail' => 'Chống ồn hàng đầu, Pin 30 giờ, LDAC, Multipoint', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'sony-wh-1000xm5.jpg'],
-            ['category_id' => $categoryModels[5]->id, 'productname' => 'Bose QuietComfort Ultra', 'price' => 9500000, 'discount' => 8, 'quantity' => 60, 'description' => 'Tai nghe cao cấp với âm thanh không gian', 'detail' => 'Immersive Audio, Chống ồn CustomTune, Pin 24 giờ', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'bose-qc-ultra.jpg'],
+            // Tầm trung & Cận cao cấp (Mid-range)
+            ['category_id' => $categoryModels[1]->id, 'productname' => 'Samsung Galaxy A55 5G', 'price' => 9990000, 'discount' => 5, 'quantity' => 100, 'description' => 'Thiết kế kim loại sang trọng, hiệu năng ổn định', 'detail' => 'Exynos 1480, Màn hình Super AMOLED 120Hz, Camera 50MP, Kháng nước IP67', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'galaxy-a55.jpg'],
+            ['category_id' => $categoryModels[1]->id, 'productname' => 'Xiaomi Redmi Note 13 Pro', 'price' => 7290000, 'discount' => 10, 'quantity' => 120, 'description' => 'Ông vua phân khúc tầm trung với camera 200MP', 'detail' => 'Camera 200MP OIS, Sạc nhanh 67W, Màn hình AMOLED viền siêu mỏng', 'guarantee' => '18 tháng', 'status' => 'active', 'image' => 'redmi-note-13-pro.jpg'],
 
-            ['category_id' => $categoryModels[6]->id, 'productname' => 'Apple Watch Series 9', 'price' => 10500000, 'discount' => 0, 'quantity' => 80, 'description' => 'Đồng hồ thông minh cao cấp từ Apple', 'detail' => 'Chip S9, Màn hình Always-On, Theo dõi sức khỏe toàn diện, WatchOS 10', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'apple-watch-series-9.jpg'],
-            ['category_id' => $categoryModels[6]->id, 'productname' => 'Samsung Galaxy Watch 6', 'price' => 7500000, 'discount' => 10, 'quantity' => 75, 'description' => 'Smartwatch Android với nhiều tính năng sức khỏe', 'detail' => 'Wear OS, Theo dõi giấc ngủ, ECG, Đo thành phần cơ thể', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'galaxy-watch-6.jpg']
+            // Giá rẻ (Budget)
+            ['category_id' => $categoryModels[1]->id, 'productname' => 'Samsung Galaxy A15', 'price' => 4990000, 'discount' => 0, 'quantity' => 150, 'description' => 'Lựa chọn hoàn hảo trong phân khúc phổ thông', 'detail' => 'Màn hình Super AMOLED, Helio G99, Pin 5000mAh, Sạc nhanh 25W', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'galaxy-a15.jpg'],
+            ['category_id' => $categoryModels[1]->id, 'productname' => 'Realme C67', 'price' => 3990000, 'discount' => 5, 'quantity' => 80, 'description' => 'Thiết kế đẹp, camera sắc nét trong tầm giá', 'detail' => 'Snapdragon 685, Camera 108MP, Màn hình 90Hz, Pin 5000mAh', 'guarantee' => '12 tháng', 'status' => 'active', 'image' => 'realme-c67.webp']
         ];
 
         $productModels = [];

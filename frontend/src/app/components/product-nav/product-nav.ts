@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, inject, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-product-nav',
@@ -6,7 +7,7 @@ import { Component } from '@angular/core';
   templateUrl: './product-nav.html',
   styleUrl: './product-nav.scss',
 })
-export class ProductNav {
+export class ProductNav implements OnInit {
   categories = [
     {
       id: 'samsung',
@@ -21,4 +22,13 @@ export class ProductNav {
       link: '/oppo',
     },
   ];
+
+  private http: any = inject(HttpClient);
+
+  ngOnInit(): void {
+    this.http.get('http://localhost:8000/api/categories').subscribe((response: any) => {
+      this.categories = response.data;
+      console.log(response);
+    });
+  }
 }

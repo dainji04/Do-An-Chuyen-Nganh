@@ -28,10 +28,9 @@ class cartController extends Controller
                 'products.price',
                 'products.image',
                 'products.description'
-            )->get();
+            )->paginate(3);
 
         return response()->json([
-            'cartCount' => $cartItems->count(),
             'cartItems' => $cartItems,
         ]);
     }

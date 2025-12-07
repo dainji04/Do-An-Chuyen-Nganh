@@ -8,9 +8,16 @@ use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
-    public function getAllProducts()
+    public function getAllProducts(Request $request)
     {
-        $products = DB::table('products')->simplePaginate(5);
+        $query = DB::table('products');
+
+        // Filter by category if provided
+        if ($request->has('category')) {
+            $query->where('category_id', $request->category);
+        }
+
+        $products = $query->simplePaginate(10);
         return response()->json($products);
     }
 

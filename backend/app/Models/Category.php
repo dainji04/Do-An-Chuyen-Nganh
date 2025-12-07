@@ -11,7 +11,13 @@ class Category extends Model
         'description'
     ];
 
-    public function products() {
+    public function products()
+    {
         return $this->hasMany(Product::class);
+    }
+
+    public function representativeProduct()
+    {
+        return $this->hasOne(Product::class, 'category_id', 'id')->oldestOfMany();
     }
 }

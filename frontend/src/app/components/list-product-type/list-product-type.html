@@ -1,0 +1,11 @@
+<div class="list-product-type">
+  <div class="products-grid">
+    @if (isLoading) {
+    <p class="loading">Đang tải...</p>
+    } @else if (products.length === 0) {
+    <p class="no-products">Không có sản phẩm nào</p>
+    } @else { @for (product of products; track product.id) {
+    <app-product-card-type [product]="product"></app-product-card-type>
+    } }
+  </div>
+</div>

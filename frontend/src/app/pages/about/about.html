@@ -1,0 +1,70 @@
+<div class="about-page">
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">Về chúng tôi</h1>
+      <p class="hero-subtitle">
+        Cửa hàng công nghệ hàng đầu với sứ mệnh mang đến những sản phẩm tốt nhất
+      </p>
+    </div>
+  </section>
+
+  <!-- Story Section -->
+  <section class="story">
+    <div class="container">
+      <div class="story-content">
+        <h2>Câu chuyện của chúng tôi</h2>
+        <p>
+          Được thành lập vào năm 2020, chúng tôi bắt đầu với một ước mơ đơn giản: mang công nghệ
+          hiện đại đến gần hơn với mọi người. Từ một cửa hàng nhỏ, chúng tôi đã phát triển thành một
+          trong những nhà bán lẻ điện thoại uy tín nhất.
+        </p>
+        <p>
+          Với đội ngũ nhân viên nhiệt huyết và am hiểu công nghệ, chúng tôi luôn sẵn sàng tư vấn và
+          hỗ trợ khách hàng tìm được sản phẩm phù hợp nhất.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        @for (stat of stats; track stat.label) {
+        <div class="stat-card">
+          <div class="stat-value">{{ stat.value }}</div>
+          <div class="stat-label">{{ stat.label }}</div>
+        </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Values Section -->
+  <section class="values">
+    <div class="container">
+      <h2 class="section-title">Giá trị cốt lõi</h2>
+      <div class="values-grid">
+        @for (value of values; track value.title) {
+        <div class="value-card">
+          <div class="value-icon">{{ value.icon }}</div>
+          <h3 class="value-title">{{ value.title }}</h3>
+          <p class="value-description">{{ value.description }}</p>
+        </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact CTA -->
+  <section class="cta">
+    <div class="container">
+      <h2>Sẵn sàng khám phá?</h2>
+      <p>Ghé thăm cửa hàng của chúng tôi hoặc mua sắm trực tuyến ngay hôm nay</p>
+      <div class="cta-buttons">
+        <a href="/home" class="btn-primary">Mua sắm ngay</a>
+      </div>
+    </div>
+  </section>
+</div>

@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { CartItem } from '../../types/cart';
+import { cartItemsResponse } from '../../types/cart';
 
 export interface CartResponse {
-  cartItems: CartItem[];
-  cartCount: number;
+  cartItems: cartItemsResponse;
 }
 
 @Injectable({
@@ -26,7 +25,7 @@ export class CartService {
     if (token) {
       this.getCart().subscribe({
         next: (response) => {
-          this.cartCountSubject.next(response.cartCount);
+          this.cartCountSubject.next(response.cartItems.total);
         },
         error: () => {
           this.cartCountSubject.next(0);

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -10,9 +10,11 @@ import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../services/cart/cart';
 
-import { CartItem } from '../../types/cart';
+import { CartItem, cartItemsResponse } from '../../types/cart';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { Observable } from 'rxjs';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 
 @Component({
   selector: 'app-cart',
@@ -29,12 +31,16 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
     FormsModule,
     NzInputModule,
     NzRadioModule,
+    AsyncPipe,
+    NzPaginationModule,
   ],
   templateUrl: './cart.html',
-  styleUrl: './cart.scss',
+  // Styling migrated to Tailwind utility classes in the template
 })
 export class Cart implements OnInit {
   cartItems: CartItem[] = [];
+  cartCount$!: Observable<number>;
+  cartData!: cartItemsResponse;
   loading = false;
   radioValue = 'Momo';
 
@@ -42,7 +48,9 @@ export class Cart implements OnInit {
     private message: NzMessageService,
     private modal: NzModalService,
     private cartService: CartService
-  ) {}
+  ) {
+    this.cartCount$ = this.cartService.cartCount$;
+  }
 
   ngOnInit(): void {
     this.loadCartItems();
@@ -53,7 +61,8 @@ export class Cart implements OnInit {
 
     this.cartService.getCart().subscribe({
       next: (response) => {
-        this.cartItems = response.cartItems;
+        this.cartItems = response.cartItems.data;
+        this.cartData = response.cartItems;
         this.loading = false;
       },
       error: (error) => {

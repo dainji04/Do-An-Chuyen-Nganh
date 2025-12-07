@@ -19,4 +19,9 @@ export class Products {
     const url = `${this.apiUrl}/${id}`;
     return this.http.get<any>(url);
   }
+
+  getProductsByCategory(categoryId: number): Observable<simpleDataProduct> {
+    const url = `${this.apiUrl}?category=${categoryId}`;
+    return this.http.get<simpleDataProduct>(url);
+  }
 }

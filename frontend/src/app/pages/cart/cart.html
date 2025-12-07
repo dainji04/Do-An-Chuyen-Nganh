@@ -1,19 +1,35 @@
-<div class="cart-container">
-  <div class="cart-wrapper">
+<div class="min-h-[calc(100vh-200px)] py-10 px-5 bg-gray-100">
+  <div class="max-w-6xl mx-auto">
     <!-- Header -->
-    <div class="cart-header">
-      <h1 class="cart-title">
-        <span nz-icon nzType="shopping-cart" nzTheme="outline"></span>
+    <div class="text-center mb-10">
+      <h1
+        class="text-2xl md:text-3xl font-extrabold text-gray-900 flex items-center justify-center gap-3"
+      >
+        <span
+          nz-icon
+          nzType="shopping-cart"
+          nzTheme="outline"
+          class="text-3xl text-indigo-600"
+        ></span>
         Giỏ hàng của bạn
       </h1>
-      <p class="cart-subtitle">{{ cartItems.length }} sản phẩm</p>
+      <p class="text-gray-500 text-sm">{{ (cartCount$ | async) ?? 0 }} sản phẩm</p>
     </div>
 
     <!-- Empty Cart -->
-    <div *ngIf="cartItems.length === 0 && !loading" class="empty-cart">
+    <div
+      *ngIf="cartItems.length === 0 && !loading"
+      class="bg-white rounded-xl p-12 text-center shadow"
+    >
       <nz-empty nzNotFoundContent="Giỏ hàng trống" [nzNotFoundImage]="'simple'">
-        <p class="empty-description">Bạn chưa có sản phẩm nào trong giỏ hàng</p>
-        <button nz-button nzType="primary" nzSize="large" class="shop-now-btn" routerLink="/home">
+        <p class="text-gray-600">Bạn chưa có sản phẩm nào trong giỏ hàng</p>
+        <button
+          nz-button
+          nzType="primary"
+          nzSize="large"
+          class="mt-6 h-11 text-lg font-semibold bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-md"
+          routerLink="/home"
+        >
           <span nz-icon nzType="shopping" nzTheme="outline"></span>
           Tiếp tục mua sắm
         </button>
@@ -21,104 +37,130 @@
     </div>
 
     <!-- Cart Content -->
-    <div *ngIf="cartItems.length > 0" class="cart-content">
+    <div *ngIf="cartItems.length > 0" class="grid md:[grid-template-columns:1fr_24rem] gap-6">
       <!-- Cart Items -->
-      <div class="cart-items">
-        <div class="items-header">
-          <h2>Sản phẩm</h2>
-          <button nz-button nzType="text" nzDanger (click)="clearCart()" class="clear-cart-btn">
+      <div class="bg-white rounded-xl p-6 shadow">
+        <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-100">
+          <h2 class="text-lg font-semibold text-gray-900 m-0">Sản phẩm</h2>
+          <button
+            nz-button
+            nzType="text"
+            nzDanger
+            (click)="clearCart()"
+            class="text-red-600 text-sm hover:text-red-400"
+          >
             <span nz-icon nzType="delete" nzTheme="outline"></span>
             Xóa tất cả
           </button>
         </div>
 
-        <div class="items-list">
-          <div *ngFor="let item of cartItems" class="cart-item">
+        <div class="flex flex-col gap-5">
+          <div
+            *ngFor="let item of cartItems"
+            class="grid grid-cols-[100px_1fr_auto_auto_auto] gap-4 p-4 border border-gray-100 rounded-lg items-center transition hover:border-indigo-400 hover:shadow-md"
+          >
             <!-- Product Image -->
-            <div class="item-image">
+            <div class="w-24 h-24 rounded-md overflow-hidden bg-gray-100">
               <img
                 [src]="'/' + item.image"
                 [alt]="item.name"
+                class="w-full h-full object-cover"
                 (error)="$any($event.target).src = '/placeholder.png'"
               />
             </div>
 
             <!-- Product Info -->
-            <div class="item-info">
-              <h3 class="item-name">
-                <a [routerLink]="['/product', item.id]">
-                  {{ item.name }}
-                </a>
+            <div class="flex flex-col gap-1">
+              <h3 class="text-base font-semibold m-0">
+                <a
+                  [routerLink]="['/product', item.id]"
+                  class="text-gray-900 hover:text-indigo-600"
+                  >{{ item.name }}</a
+                >
               </h3>
-              <p class="item-description">{{ item.description }}</p>
-              <div class="item-price">
+              <p class="text-sm text-gray-500 m-0">{{ item.description }}</p>
+              <div class="text-lg font-semibold text-indigo-600 mt-1">
                 {{ formatCurrency(item.price) }}
               </div>
             </div>
 
             <!-- Quantity Controls -->
-            <div class="item-quantity">
-              <label>Số lượng:</label>
+            <div class="flex flex-col gap-2">
+              <label class="text-sm text-gray-600 font-medium">Số lượng:</label>
               <nz-input-number
                 [(ngModel)]="item.quantity"
                 [nzMin]="1"
                 [nzMax]="99"
                 [nzStep]="1"
               ></nz-input-number>
-              <!-- (ngModelChange)="updateQuantity(item, $event)" -->
             </div>
 
             <!-- Item Total -->
-            <div class="item-total">
-              <div class="total-label">Tổng:</div>
-              <div class="total-price">
+            <div class="flex flex-col items-end min-w-[140px]">
+              <div class="text-sm text-gray-500">Tổng:</div>
+              <div class="text-base font-bold text-gray-900">
                 {{ formatCurrency(getItemTotal(item)) }}
               </div>
             </div>
 
             <!-- Remove Button -->
-            <div class="item-actions">
+            <div>
               <button
                 nz-button
                 nzType="text"
                 nzDanger
                 (click)="removeItem(item)"
-                class="remove-btn"
+                class="text-red-500 text-xl p-1 hover:bg-red-50 rounded-full"
               >
                 <span nz-icon nzType="close-circle" nzTheme="outline"></span>
               </button>
             </div>
           </div>
         </div>
+
+        <!-- Paginate -->
+        @if (cartData.current_page < cartData.last_page) {
+        <div class="mt-6 flex justify-center">
+          <nz-pagination
+            [nzPageIndex]="cartData.current_page"
+            [nzPageSize]="cartData.per_page"
+            [nzTotal]="cartData.total"
+          ></nz-pagination>
+        </div>
+        }
       </div>
 
       <!-- Order Summary -->
-      <div class="order-summary">
-        <div class="summary-card">
-          <h2 class="summary-title">Tóm tắt đơn hàng</h2>
+      <div class="">
+        <div class="bg-white rounded-xl p-6 shadow sticky top-5">
+          <h2 class="text-lg font-semibold text-gray-900 mb-4 pb-3 border-b border-gray-100">
+            Tóm tắt đơn hàng
+          </h2>
 
-          <div class="summary-row">
+          <div class="flex justify-between items-center text-sm text-gray-600 mb-3">
             <span>Tạm tính:</span>
-            <span>{{ formatCurrency(getSubtotal()) }}</span>
+            <span class="font-semibold text-gray-900">{{ formatCurrency(getSubtotal()) }}</span>
           </div>
 
-          <div class="summary-row">
+          <div class="flex justify-between items-center text-sm text-gray-600 mb-3">
             <span>Phí vận chuyển:</span>
-            <span>{{ formatCurrency(getShippingFee()) }}</span>
+            <span class="font-semibold text-gray-900">{{ formatCurrency(getShippingFee()) }}</span>
           </div>
 
-          <div class="summary-divider"></div>
+          <div class="h-px bg-gray-100 my-4"></div>
 
-          <div class="summary-row summary-total">
+          <div class="flex justify-between items-center text-lg font-bold text-gray-900 mb-4">
             <span>Tổng cộng:</span>
-            <span class="total-amount">{{ formatCurrency(getTotal()) }}</span>
+            <span class="text-2xl text-indigo-600">{{ formatCurrency(getTotal()) }}</span>
           </div>
 
-          <div class="option-order">
-            <nz-radio-group [(ngModel)]="radioValue">
-              <label nz-radio nzValue="Momo" class="text-xl">Thanh toán với Momo</label> <br />
-              <label nz-radio nzValue="Cod">Thanh toán Cod</label> <br />
-              <label nz-radio nzValue="thanhtoantaicho">Thanh toán khi nhận hàng</label> <br />
+          <div class="mb-4">
+            <nz-radio-group [(ngModel)]="radioValue" class="flex flex-col gap-2">
+              <label nz-radio nzValue="Momo" class="text-base">Thanh toán với Momo</label>
+              <label nz-radio nzValue="Cod" class="text-base">Thanh toán Cod</label>
+              <label nz-radio nzValue="thanhtoantaicho" class="text-base">
+                Thanh toán khi nhận hàng
+              </label>
             </nz-radio-group>
           </div>
 
@@ -127,20 +169,28 @@
             nzType="primary"
             nzSize="large"
             nzBlock
-            class="checkout-btn"
+            class="h-12 text-lg font-semibold bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-md"
             (click)="checkout()"
           >
             <span nz-icon nzType="credit-card" nzTheme="outline"></span>
             Thanh toán
           </button>
 
-          <button nz-button nzSize="large" nzBlock class="continue-shopping-btn" routerLink="/home">
+          <button
+            nz-button
+            nzSize="large"
+            nzBlock
+            class="h-11 border border-gray-200 rounded-md mt-3 hover:border-indigo-400"
+            routerLink="/home"
+          >
             <span nz-icon nzType="arrow-left" nzTheme="outline"></span>
             Tiếp tục mua sắm
           </button>
 
           <!-- Security Badge -->
-          <div class="security-badge">
+          <div
+            class="flex items-center justify-center gap-2 mt-4 pt-4 border-t border-gray-100 text-sm text-green-500"
+          >
             <span nz-icon nzType="safety-certificate" nzTheme="outline"></span>
             <span>Thanh toán an toàn & bảo mật</span>
           </div>

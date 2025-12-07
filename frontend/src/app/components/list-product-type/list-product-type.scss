@@ -1,0 +1,18 @@
+.list-product-type {
+  width: 100%;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.loading,
+.no-products {
+  text-align: center;
+  padding: 40px 0;
+  font-size: 16px;
+  color: #666666;
+}
