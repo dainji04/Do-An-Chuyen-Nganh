@@ -67,11 +67,12 @@ nz-form-item {
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 24px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #1a1a1a;
   border: none;
+  border-radius: 8px;
 
   &:hover {
-    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    background: #333333;
   }
 }
 
@@ -87,6 +88,7 @@ nz-form-item {
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 8px;
   gap: 8px;
   font-weight: 500;
   border: 1px solid #e0e0e0;

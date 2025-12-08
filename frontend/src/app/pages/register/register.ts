@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -16,6 +16,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { Auth } from '../../services/auth/auth';
 
 @Component({
   selector: 'app-register',
@@ -39,6 +40,7 @@ export class Register {
   isLoading = false;
   passwordVisible = false;
   confirmPasswordVisible = false;
+  private auth: Auth = inject(Auth);
 
   constructor(private fb: FormBuilder, private router: Router, private message: NzMessageService) {
     this.registerForm = this.fb.group(
@@ -74,19 +76,28 @@ export class Register {
   submitForm(): void {
     if (this.registerForm.valid) {
       this.isLoading = true;
-      const formData = { ...this.registerForm.value };
-      delete formData.confirmPassword;
-      delete formData.agreeToTerms;
+      const formData = {
+        fullname: this.registerForm.value.fullname,
+        username: this.registerForm.value.username,
+        email: this.registerForm.value.email,
+        phone: this.registerForm.value.numberphone,
+        password: this.registerForm.value.password,
+        password_confirmation: this.registerForm.value.confirmPassword,
+      };
 
-      // TODO: Integrate with backend API
-      console.log('Register with:', formData);
-
-      // Simulate API call
-      setTimeout(() => {
-        this.isLoading = false;
-        this.message.success('Đăng ký thành công! Vui lòng đăng nhập.');
-        this.router.navigate(['/login']);
-      }, 1500);
+      this.auth.register(formData).subscribe({
+        next: () => {
+          this.isLoading = false;
+          this.message.success('Đăng ký thành công! Vui lòng đăng nhập.');
+          this.router.navigate(['/login']);
+        },
+        error: (err) => {
+          this.isLoading = false;
+          if (err.error && err.error.message) {
+            this.message.error(`Đăng ký thất bại: ${err.error.message}`);
+          }
+        },
+      });
     } else {
       Object.values(this.registerForm.controls).forEach((control) => {
         if (control.invalid) {

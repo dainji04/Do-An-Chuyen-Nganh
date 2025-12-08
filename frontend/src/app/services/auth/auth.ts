@@ -10,6 +10,15 @@ interface LoginResponse {
   token: string;
 }
 
+interface RegisterFormData {
+  fullname: string;
+  username: string;
+  email: string;
+  phone: string;
+  password: string;
+  password_confirmation: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -26,6 +35,11 @@ export class Auth {
 
   public get currentUserValue(): User | null {
     return this.currentUserSubject.value;
+  }
+
+  // register
+  register(formData: RegisterFormData) {
+    return this.http.post(`${this.apiUrl}/register`, formData);
   }
 
   /**
