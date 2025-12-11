@@ -12,8 +12,8 @@
 // Hero Section
 .hero {
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url('https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1600') center/cover
-      no-repeat;
+    url('https://images.wallpapersden.com/image/download/android-samsung-galaxy-mobile-phone_Z2hpaG2UmZqaraWkpJRnbW1lrWZtZWU.jpg')
+      center/cover no-repeat;
   color: #ffffff;
   padding: 120px 0 100px;
   text-align: center;
@@ -24,6 +24,10 @@
     font-weight: 700;
     margin: 0 0 20px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    background-image: linear-gradient(to right, #ca4848, #3379a2);
   }
 
   .hero-subtitle {

@@ -8,9 +8,11 @@
   ></app-breadcrumb>
   <div class="introduce mb-16">
     <div class="left">
-      <h1 class="product-name text-6xl m-0 mb-4">Mua Iphone 17 pro</h1>
-      <p class="description text-xl m-0">description</p>
-      <p class="price text-xl m-0">Từ 30.000.000 VND hoặc 1.250.000 VND/tháng x 24 tháng</p>
+      <h1 class="product-name text-6xl m-0 mb-4">{{ product.productname }}</h1>
+      <p class="price text-xl m-0">
+        Từ {{ product.price | currency : 'VND' : '' : '1.0-0' }} VNĐ hoặc
+        {{ product.price / 24 | currency : 'VND' : '' : '1.0-0' }} VND/tháng x 24 tháng
+      </p>
     </div>
     <div class="right"></div>
   </div>
@@ -102,6 +104,56 @@
         <h2 class="text-2xl font-bold mb-4">Product Detail</h2>
         <p [innerHTML]="product.detail" class="text-base leading-7 text-justify"></p>
       </div>
+
+      <nz-divider></nz-divider>
+
+      <div class="policy">
+        <h2 class="text-2xl font-bold mb-4">Chính sách & Cam kết</h2>
+
+        <div class="grid grid-cols-1 gap-4">
+          <div class="flex items-start gap-3">
+            <div class="mt-1">
+              <nz-icon
+                nzType="safety-certificate"
+                nzTheme="outline"
+                class="text-2xl text-blue-600"
+              ></nz-icon>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">Bảo hành chính hãng</h3>
+              <p class="text-base leading-6 text-gray-600 text-justify">
+                Cam kết sản phẩm chính hãng 100%. Bảo hành tiêu chuẩn theo quy định của nhà sản
+                xuất.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3">
+            <div class="mt-1">
+              <nz-icon nzType="sync" nzTheme="outline" class="text-2xl text-green-600"></nz-icon>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">Đổi trả dễ dàng</h3>
+              <p class="text-base leading-6 text-gray-600 text-justify">
+                Hỗ trợ 1 đổi 1 trong vòng 15 ngày nếu phát hiện lỗi từ phía nhà sản xuất.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3">
+            <div class="mt-1">
+              <nz-icon nzType="rocket" nzTheme="outline" class="text-2xl text-orange-600"></nz-icon>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">Giao hàng toàn quốc</h3>
+              <p class="text-base leading-6 text-gray-600 text-justify">
+                Đóng gói cẩn thận, giao hàng nhanh chóng và kiểm tra hàng trước khi thanh toán.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Gốc -->
     </div>
   </div>
   <app-faq></app-faq>

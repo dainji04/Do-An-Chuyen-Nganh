@@ -12,7 +12,8 @@
 // Hero Section
 .hero {
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url('https://images.unsplash.com/photo-1556656793-08538906a9f8?w=1600') center/cover no-repeat;
+    url('https://i0.wp.com/www.smartprix.com/bytes/wp-content/uploads/2022/01/FJVYfarWYAECQ-Y-photoutils.com_.jpeg?ssl=1')
+      center/cover no-repeat;
   color: #ffffff;
   padding: 120px 0 100px;
   text-align: center;
@@ -23,6 +24,10 @@
     font-weight: 700;
     margin: 0 0 20px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    background-image: linear-gradient(to right, #ca4848, #3379a2);
   }
 
   .hero-subtitle {

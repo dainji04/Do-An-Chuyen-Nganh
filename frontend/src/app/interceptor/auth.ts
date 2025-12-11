@@ -42,7 +42,7 @@ export function AuthInterceptor(
         localStorage.removeItem('user');
         localStorage.removeItem('token_expiry');
         localStorage.removeItem('last_login');
-        router.navigate(['/']);
+        router.navigate(['/login']);
       }
 
       return throwError(() => error);

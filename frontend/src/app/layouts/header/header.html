@@ -1,82 +1,183 @@
-<div class="container flex justify-between align-center header mx-auto">
-  <div class="header__logo flex items-center justify-center">
-    <a class="font-sans" routerLink="/">
-      <!-- <svg height="44" viewBox="0 0 14 44" width="14" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="m13.0729 17.6825a3.61 3.61 0 0 0 -1.7248 3.0365 3.5132 3.5132 0 0 0 2.1379 3.2223 8.394 8.394 0 0 1 -1.0948 2.2618c-.6816.9812-1.3943 1.9623-2.4787 1.9623s-1.3633-.63-2.613-.63c-1.2187 0-1.6525.6507-2.644.6507s-1.6834-.9089-2.4787-2.0243a9.7842 9.7842 0 0 1 -1.6628-5.2776c0-3.0984 2.014-4.7405 3.9969-4.7405 1.0535 0 1.9314.6919 2.5924.6919.63 0 1.6112-.7333 2.8092-.7333a3.7579 3.7579 0 0 1 3.1604 1.5802zm-3.7284-2.8918a3.5615 3.5615 0 0 0 .8469-2.22 1.5353 1.5353 0 0 0 -.031-.32 3.5686 3.5686 0 0 0 -2.3445 1.2084 3.4629 3.4629 0 0 0 -.8779 2.1585 1.419 1.419 0 0 0 .031.2892 1.19 1.19 0 0 0 .2169.0207 3.0935 3.0935 0 0 0 2.1586-1.1368z"
-        ></path>
-      </svg> -->
-      <img class="h-6" src="logo-removebg.png" alt="logo" />
-    </a>
-  </div>
-  <nav class="header__nav flex justify-center items-center gap-8">
-    <a routerLink="/home" class="hover:underline">Home</a>
-    <a routerLink="/about" class="hover:underline">About</a>
-    <a routerLink="/contact" class="hover:underline">Contact</a>
-  </nav>
-  <div class="auth flex items-center gap-8">
-    <nav class="flex justify-center items-center gap-8">
-      <button>
-        <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="44px" viewBox="0 0 15 44">
+<div class="header relative bg-white z-20">
+  <div class="container flex justify-between align-center header mx-auto relative z-20">
+    <div class="header__logo flex items-center justify-center">
+      <a class="font-sans" routerLink="/">
+        <!-- <svg height="44" viewBox="0 0 14 44" width="14" xmlns="http://www.w3.org/2000/svg">
           <path
-            d="M14.298,27.202l-3.87-3.87c0.701-0.929,1.122-2.081,1.122-3.332c0-3.06-2.489-5.55-5.55-5.55c-3.06,0-5.55,2.49-5.55,5.55 c0,3.061,2.49,5.55,5.55,5.55c1.251,0,2.403-0.421,3.332-1.122l3.87,3.87c0.151,0.151,0.35,0.228,0.548,0.228 s0.396-0.076,0.548-0.228C14.601,27.995,14.601,27.505,14.298,27.202z M1.55,20c0-2.454,1.997-4.45,4.45-4.45 c2.454,0,4.45,1.997,4.45,4.45S8.454,24.45,6,24.45C3.546,24.45,1.55,22.454,1.55,20z"
+            d="m13.0729 17.6825a3.61 3.61 0 0 0 -1.7248 3.0365 3.5132 3.5132 0 0 0 2.1379 3.2223 8.394 8.394 0 0 1 -1.0948 2.2618c-.6816.9812-1.3943 1.9623-2.4787 1.9623s-1.3633-.63-2.613-.63c-1.2187 0-1.6525.6507-2.644.6507s-1.6834-.9089-2.4787-2.0243a9.7842 9.7842 0 0 1 -1.6628-5.2776c0-3.0984 2.014-4.7405 3.9969-4.7405 1.0535 0 1.9314.6919 2.5924.6919.63 0 1.6112-.7333 2.8092-.7333a3.7579 3.7579 0 0 1 3.1604 1.5802zm-3.7284-2.8918a3.5615 3.5615 0 0 0 .8469-2.22 1.5353 1.5353 0 0 0 -.031-.32 3.5686 3.5686 0 0 0 -2.3445 1.2084 3.4629 3.4629 0 0 0 -.8779 2.1585 1.419 1.419 0 0 0 .031.2892 1.19 1.19 0 0 0 .2169.0207 3.0935 3.0935 0 0 0 2.1586-1.1368z"
           ></path>
-        </svg>
-      </button>
-      <nz-badge
-        nzSize="small"
-        nzShowZero
-        [nzCount]="(cartCount$ | async) ?? 0"
-        [nzOffset]="[-15, 30]"
-      >
-        <button routerLink="cart">
-          <svg height="44" viewBox="0 0 14 44" width="14" xmlns="http://www.w3.org/2000/svg">
+        </svg> -->
+        <img class="h-6" src="logo-removebg-preview.png" alt="logo" />
+      </a>
+    </div>
+    <nav class="header__nav flex justify-center items-center gap-8">
+      <a routerLink="/home" class="hover:underline">Home</a>
+      <a routerLink="/about" class="hover:underline">About</a>
+      <a routerLink="/contact" class="hover:underline">Contact</a>
+    </nav>
+    <div class="auth flex items-center gap-8">
+      <nav class="flex justify-center items-center gap-8">
+        <button (click)="isShowSearch = !isShowSearch">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="44px" viewBox="0 0 15 44">
             <path
-              d="m11.3535 16.0283h-1.0205a3.4229 3.4229 0 0 0 -3.333-2.9648 3.4229 3.4229 0 0 0 -3.333 2.9648h-1.02a2.1184 2.1184 0 0 0 -2.117 2.1162v7.7155a2.1186 2.1186 0 0 0 2.1162 2.1167h8.707a2.1186 2.1186 0 0 0 2.1168-2.1167v-7.7155a2.1184 2.1184 0 0 0 -2.1165-2.1162zm-4.3535-1.8652a2.3169 2.3169 0 0 1 2.2222 1.8652h-4.4444a2.3169 2.3169 0 0 1 2.2222-1.8652zm5.37 11.6969a1.0182 1.0182 0 0 1 -1.0166 1.0171h-8.7069a1.0182 1.0182 0 0 1 -1.0165-1.0171v-7.7155a1.0178 1.0178 0 0 1 1.0166-1.0166h8.707a1.0178 1.0178 0 0 1 1.0164 1.0166z"
+              d="M14.298,27.202l-3.87-3.87c0.701-0.929,1.122-2.081,1.122-3.332c0-3.06-2.489-5.55-5.55-5.55c-3.06,0-5.55,2.49-5.55,5.55 c0,3.061,2.49,5.55,5.55,5.55c1.251,0,2.403-0.421,3.332-1.122l3.87,3.87c0.151,0.151,0.35,0.228,0.548,0.228 s0.396-0.076,0.548-0.228C14.601,27.995,14.601,27.505,14.298,27.202z M1.55,20c0-2.454,1.997-4.45,4.45-4.45 c2.454,0,4.45,1.997,4.45,4.45S8.454,24.45,6,24.45C3.546,24.45,1.55,22.454,1.55,20z"
             ></path>
           </svg>
         </button>
-      </nz-badge>
-    </nav>
-    @if (user) {
-    <div class="header-user">
-      <nz-avatar
-        nz-dropdown
-        nzTrigger="click"
-        [nzDropdownMenu]="menu"
-        nzPlacement="bottomRight"
-        [nzSrc]="user.avatarimage"
-        [nzSize]="40"
-        style="cursor: pointer"
-      ></nz-avatar>
-      <nz-dropdown-menu #menu="nzDropdownMenu">
-        <ul nz-menu>
-          <li nz-menu-item class="user-info">
-            <div class="user-details">
-              <div class="user-name">{{ user.fullname }}</div>
-              <div class="user-email">{{ user.email }}</div>
-            </div>
-          </li>
-          <li nz-menu-divider></li>
-          <li nz-menu-item (click)="goToProfile($event)">
-            <span class="mr-1" nz-icon nzType="user" nzTheme="outline"></span>
-            <span>Tài khoản của tôi</span>
-          </li>
-          <li nz-menu-item (click)="goToSettings($event)">
-            <span class="mr-1" nz-icon nzType="setting" nzTheme="outline"></span>
-            <span>Cài đặt</span>
-          </li>
-          <li nz-menu-divider></li>
-          <li nz-menu-item (click)="logout($event)">
-            <span class="mr-1" nz-icon nzType="logout" nzTheme="outline"></span>
-            <span>Đăng xuất</span>
-          </li>
-        </ul>
-      </nz-dropdown-menu>
-    </div>
+        <nz-badge
+          nzSize="small"
+          nzShowZero
+          [nzCount]="(cartCount$ | async) ?? 0"
+          [nzOffset]="[-15, 30]"
+        >
+          <button (click)="GotoOrders($event)">
+            <svg height="44" viewBox="0 0 14 44" width="14" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="m11.3535 16.0283h-1.0205a3.4229 3.4229 0 0 0 -3.333-2.9648 3.4229 3.4229 0 0 0 -3.333 2.9648h-1.02a2.1184 2.1184 0 0 0 -2.117 2.1162v7.7155a2.1186 2.1186 0 0 0 2.1162 2.1167h8.707a2.1186 2.1186 0 0 0 2.1168-2.1167v-7.7155a2.1184 2.1184 0 0 0 -2.1165-2.1162zm-4.3535-1.8652a2.3169 2.3169 0 0 1 2.2222 1.8652h-4.4444a2.3169 2.3169 0 0 1 2.2222-1.8652zm5.37 11.6969a1.0182 1.0182 0 0 1 -1.0166 1.0171h-8.7069a1.0182 1.0182 0 0 1 -1.0165-1.0171v-7.7155a1.0178 1.0178 0 0 1 1.0166-1.0166h8.707a1.0178 1.0178 0 0 1 1.0164 1.0166z"
+              ></path>
+            </svg>
+          </button>
+        </nz-badge>
+      </nav>
+      @if (user) {
+      <div class="header-user">
+        <nz-avatar
+          nz-dropdown
+          nzTrigger="click"
+          [nzDropdownMenu]="menu"
+          nzPlacement="bottomRight"
+          [nzSrc]="user.avatarimage"
+          [nzSize]="40"
+          style="cursor: pointer"
+        ></nz-avatar>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item class="user-info">
+              <div class="user-details">
+                <div class="user-name">{{ user.fullname }}</div>
+                <div class="user-email">{{ user.email }}</div>
+              </div>
+            </li>
+            <li nz-menu-divider></li>
+            <li nz-menu-item (click)="goToProfile($event)">
+              <span class="mr-1" nz-icon nzType="user" nzTheme="outline"></span>
+              <span>Tài khoản của tôi</span>
+            </li>
+            <li nz-menu-item (click)="goToSettings($event)">
+              <span class="mr-1" nz-icon nzType="setting" nzTheme="outline"></span>
+              <span>Cài đặt</span>
+            </li>
+            <li nz-menu-divider></li>
+            <li nz-menu-item (click)="logout($event)">
+              <span class="mr-1" nz-icon nzType="logout" nzTheme="outline"></span>
+              <span>Đăng xuất</span>
+            </li>
+          </ul>
+        </nz-dropdown-menu>
+      </div>
 
-    } @else {
-    <a routerLink="/login" class="mr-4">Login</a>
-    }
+      } @else {
+      <a routerLink="/login" class="mr-4">Login</a>
+      }
+    </div>
   </div>
+
+  <!-- Search Box -->
+  @if (isShowSearch) {
+  <div class="absolute w-full bg-white z-30" @slideInOut>
+    <div class="search-box max-w-[1024px] mt-5 mx-auto pt-4 pb-20">
+      <div class="relative flex items-center w-full mb-8">
+        <span class="text-gray-400 shrink-0">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+        </span>
+
+        <input
+          #searchInput
+          type="text"
+          [(ngModel)]="searchText"
+          class="w-full bg-transparent border-none outline-none text-[24px] text-gray-900 placeholder:text-gray-400 ml-4 font-normal py-2 leading-tight"
+          placeholder="Tìm kiếm trên dainji.id.vn"
+          autocomplete="off"
+        />
+
+        <button
+          *ngIf="searchText"
+          (click)="clearSearch()"
+          class="absolute right-0 p-1 text-white bg-gray-400 rounded-full hover:bg-gray-500 transition-colors"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <div class="w-full">
+        <h3 class="text-[12px] font-semibold text-gray-500 mb-2 select-none">Liên Kết Nhanh</h3>
+
+        <ul class="flex flex-col">
+          @for (link of quickLinks; track $index) {
+          <li>
+            <a
+              [href]="link.url"
+              class="group flex items-center py-2 -mx-4 px-4 rounded-lg cursor-pointer hover:bg-[#F5F5F7] transition-colors duration-200 ease-in-out"
+            >
+              <span
+                class="text-gray-400 mr-3 transition-colors duration-200 group-hover:text-gray-900"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-3 w-3"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="3"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                  />
+                </svg>
+              </span>
+
+              <span class="text-[14px] font-medium text-gray-800 group-hover:text-black">
+                {{ link.label }}
+              </span>
+            </a>
+          </li>
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+  }
 </div>
+@if (isShowSearch) {
+<div
+  @overlayFade
+  (click)="isShowSearch = false"
+  class="overlay fixed top-0 bottom-0 left-0 right-0 z-10"
+></div>
+}

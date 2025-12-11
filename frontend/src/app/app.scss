@@ -1,0 +1,25 @@
+header,
+footer {
+  position: relative;
+  z-index: 2;
+}
+.body {
+  position: relative;
+  z-index: 1;
+}
+
+header {
+  background-color: #fff;
+}
+
+.black-screen {
+  animation: fadeOut 1s ease-in-out forwards;
+  animation-delay: 0.5s;
+  z-index: 2;
+}
+
+@keyframes fadeOut {
+  to {
+    height: 0%;
+  }
+}

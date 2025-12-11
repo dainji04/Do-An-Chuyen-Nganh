@@ -1,4 +1,4 @@
-<div class="swiper-wrapper-custom" data-aos="zoom-out">
+<div class="swiper-wrapper-custom">
   <swiper-container
     #swiper
     class="mySwiper"
@@ -7,13 +7,77 @@
     navigation="false"
     allow-touch-move="false"
   >
-    @for (item of products; track $index) {
+    @if (isLoading) { @for (fake of skeletonItems; track $index) {
+    <swiper-slide class="max-w-[400px] py-4">
+      <div class="border border-gray-100 rounded-lg p-4 bg-white h-full shadow-sm">
+        <div class="flex justify-between items-start mb-4">
+          <nz-skeleton-element
+            nzType="input"
+            [nzActive]="true"
+            class="!w-3/4 !h-8 block"
+          ></nz-skeleton-element>
+          <nz-skeleton-element
+            nzType="avatar"
+            [nzActive]="true"
+            [nzShape]="'square'"
+            class="!w-16 !h-6 block opacity-50"
+          ></nz-skeleton-element>
+        </div>
+
+        <div class="mb-6">
+          <nz-skeleton-element
+            nzType="input"
+            [nzActive]="true"
+            class="!w-1/2 !h-6 block"
+          ></nz-skeleton-element>
+        </div>
+
+        <div class="flex gap-4 mt-6">
+          <nz-skeleton-element
+            nzType="button"
+            [nzActive]="true"
+            class="!w-full !rounded-lg"
+          ></nz-skeleton-element>
+          <nz-skeleton-element
+            nzType="button"
+            [nzActive]="true"
+            class="!w-full !rounded-lg"
+          ></nz-skeleton-element>
+        </div>
+
+        <nz-divider class="my-6"></nz-divider>
+
+        <div class="description">
+          <nz-skeleton
+            [nzActive]="true"
+            [nzParagraph]="{ rows: 3, width: ['100%', '90%', '60%'] }"
+            [nzTitle]="{ width: '40%' }"
+          ></nz-skeleton>
+        </div>
+
+        <nz-divider class="my-6"></nz-divider>
+
+        <div class="detail mt-4">
+          <nz-skeleton
+            [nzActive]="true"
+            [nzParagraph]="{ rows: 2 }"
+            [nzTitle]="{ width: '30%' }"
+          ></nz-skeleton>
+        </div>
+      </div>
+    </swiper-slide>
+    } } @else { @for (item of products; track item.id || $index) {
     <swiper-slide class="max-w-[400px] py-4">
       <app-product-item [index]="$index" [product]="item"></app-product-item>
     </swiper-slide>
     } @empty {
-    <nz-skeleton></nz-skeleton>
-    }
+    <div
+      class="w-full h-[300px] flex flex-col justify-center items-center text-gray-400 col-span-3"
+    >
+      <nz-icon nzType="inbox" nzTheme="outline" class="text-6xl mb-4"></nz-icon>
+      <p>Không tìm thấy sản phẩm nào</p>
+    </div>
+    } }
   </swiper-container>
 
   <!-- Custom Navigation Buttons bên ngoài -->

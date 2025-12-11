@@ -67,7 +67,7 @@ export class Cart implements OnInit {
       },
       error: (error) => {
         console.error('Error loading cart:', error);
-        this.message.error('Không thể tải giỏ hàng');
+        this.message.error('Vui lòng đăng nhập để xem giỏ hàng');
         this.loading = false;
       },
     });

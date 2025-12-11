@@ -151,6 +151,10 @@ export class Auth {
     return true;
   }
 
+  isLoggedIn(): boolean {
+    return this.isAuthenticated();
+  }
+
   /**
    * Lấy token
    */

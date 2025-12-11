@@ -13,25 +13,4 @@ import { ListProductType } from '../../components/list-product-type/list-product
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
-export class Home implements OnInit {
-  products: Product[] = [];
-
-  productService = inject(Products);
-
-  constructor() {}
-
-  ngOnInit(): void {
-    this.getProducts();
-  }
-
-  getProducts() {
-    this.productService.getProducts().subscribe({
-      next: (data: simpleDataProduct) => {
-        this.products = data.data;
-      },
-      error: (error) => {
-        console.error('Error fetching products:', error);
-      },
-    });
-  }
-}
+export class Home {}

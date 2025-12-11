@@ -7,7 +7,9 @@
   <p class="product-description text-xl text-inherit w-64 truncate text-inherit">
     {{ product.description }}
   </p>
-  <p class="product-price text-inherit">Từ {{ product.price | currency }}₫</p>
+  <p class="product-price text-inherit">
+    Từ {{ product.price | currency : 'VND' : '' : '1.0-0' }}₫
+  </p>
   <img
     class="product-image w-full h-[368px] object-cover"
     [src]="product.image"
