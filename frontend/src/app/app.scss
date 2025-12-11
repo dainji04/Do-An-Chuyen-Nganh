@@ -15,7 +15,7 @@ header {
 .black-screen {
   animation: fadeOut 1s ease-in-out forwards;
   animation-delay: 0.5s;
-  z-index: 2;
+  z-index: 1000;
 }
 
 @keyframes fadeOut {

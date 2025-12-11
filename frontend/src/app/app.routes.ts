@@ -6,6 +6,7 @@ import { Register } from './pages/register/register';
 import { Cart } from './pages/cart/cart';
 import { About } from './pages/about/about';
 import { Contact } from './pages/contact/contact';
+import { ListProductsByCategory } from './pages/list-products-by-category/list-products-by-category';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -14,6 +15,7 @@ export const routes: Routes = [
   { path: 'contact', component: Contact },
   { path: 'product/:id', component: DetailProduct },
   { path: 'cart', component: Cart },
+  { path: 'category/:id', component: ListProductsByCategory },
   { path: 'login', component: Login },
   { path: 'register', component: Register },
 ];

@@ -1,5 +1,5 @@
 <div
-  class="black-screen bg-black h-screen w-full fixed top-0 left-0"
+  class="black-screen bg-black h-screen w-full fixed top-0 left-0 z-50"
   animate.enter="enter-animation"
 ></div>
 <header *ngIf="showHeaderFooter">
@@ -11,3 +11,5 @@
 <footer *ngIf="showHeaderFooter">
   <app-footer></app-footer>
 </footer>
+
+<nz-float-button-top [nzVisibilityHeight]="0"></nz-float-button-top>

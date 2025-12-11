@@ -6,11 +6,12 @@ import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs/operators';
 
 import AOS from 'aos';
+import { NzFloatButtonModule } from 'ng-zorro-antd/float-button';
 declare var SmoothScroll: any;
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, Footer, CommonModule],
+  imports: [RouterOutlet, Header, Footer, CommonModule, NzFloatButtonModule],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
