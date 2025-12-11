@@ -3,6 +3,7 @@ import { CurrencyPipe } from '@angular/common';
 import { Product } from '../../types/product';
 import { RouterLink } from '@angular/router';
 import { CartService } from '../../services/cart/cart';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'app-product-card-type',
@@ -15,6 +16,7 @@ export class ProductCardType {
 
   cartService = inject(CartService);
   isAddingToCart = false;
+  private notification: NzNotificationService = inject(NzNotificationService);
 
   addToCart(event: Event) {
     event.preventDefault();
@@ -25,7 +27,7 @@ export class ProductCardType {
     this.isAddingToCart = true;
     this.cartService.addToCart(Number(this.product.id), 1).subscribe({
       next: (response) => {
-        console.log('Added to cart:', response);
+        this.notification.success('Success', 'Product added to cart successfully.');
         this.isAddingToCart = false;
       },
       error: (error) => {
