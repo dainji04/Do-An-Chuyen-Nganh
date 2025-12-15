@@ -9,7 +9,11 @@ import { RouterLink } from '@angular/router';
     <nz-breadcrumb>
       @for(item of items; track $index) {
       <nz-breadcrumb-item class="cursor-pointer">
-        <a [routerLink]="item.url">{{ item.label }}</a>
+        <a
+          [style]="$index == items.length - 1 ? 'color: #0033ffcf;' : ''"
+          [routerLink]="item.url"
+          >{{ item.label }}</a
+        >
       </nz-breadcrumb-item>
       }
     </nz-breadcrumb>

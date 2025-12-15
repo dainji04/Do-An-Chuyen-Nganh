@@ -7,6 +7,7 @@ import { Cart } from './pages/cart/cart';
 import { About } from './pages/about/about';
 import { Contact } from './pages/contact/contact';
 import { ListProductsByCategory } from './pages/list-products-by-category/list-products-by-category';
+import { SearchPage } from './pages/search-page/search-page';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -16,6 +17,7 @@ export const routes: Routes = [
   { path: 'product/:id', component: DetailProduct },
   { path: 'cart', component: Cart },
   { path: 'category/:id', component: ListProductsByCategory },
+  { path: 'search', component: SearchPage },
   { path: 'login', component: Login },
   { path: 'register', component: Register },
 ];

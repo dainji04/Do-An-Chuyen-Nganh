@@ -17,9 +17,12 @@ Route::post('/reset-password', [NewPasswordController::class, 'store']);
 
 // Product routes
 Route::get('/products', [ProductController::class, 'getAllProducts']);
+// search products
+Route::post('/products/search', [ProductController::class, 'searchProducts']);
 Route::get('/products/{id}', [ProductController::class, 'getProductById']);
 
 Route::get('/categories', [App\Http\Controllers\CategoryController::class, 'index']);
+
 
 // Protected routes (cần authentication)
 Route::middleware(['auth:sanctum'])->group(function () {

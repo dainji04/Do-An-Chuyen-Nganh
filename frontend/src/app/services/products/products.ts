@@ -24,4 +24,9 @@ export class Products {
     const url = `${this.apiUrl}?category=${categoryName}`;
     return this.http.get<simpleDataProduct>(url);
   }
+
+  searchProducts(keyword: string): Observable<simpleDataProduct> {
+    const url = `${this.apiUrl}/search`;
+    return this.http.post<simpleDataProduct>(url, { keyword });
+  }
 }

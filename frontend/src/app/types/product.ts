@@ -1,3 +1,5 @@
+import { simplePaginateResponse } from './simplePaginateResponse';
+
 interface rawProduct {
   id: string;
   category_id: string;
@@ -26,15 +28,6 @@ interface imageProduct {
   image: string;
 }
 
-export interface simpleDataProduct {
-  curren_page: number;
-  current_page_url: string;
+export interface simpleDataProduct extends simplePaginateResponse {
   data: Product[];
-  first_page_url: string;
-  from: number;
-  next_page_url: string;
-  path: string;
-  per_page: number;
-  prev_page_url: string;
-  to: number;
 }

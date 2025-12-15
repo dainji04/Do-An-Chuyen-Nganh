@@ -35,4 +35,14 @@ class ProductController extends Controller
         }
         return response()->json($product);
     }
+
+    public function searchProducts(Request $request)
+    {
+        $keyword = $request->input('keyword', '');
+        $products = Product::where('productname', 'LIKE', '%' . $keyword . '%')
+            ->orWhere("description", 'LIKE', '%' . $keyword . '%')
+            ->orWhere('detail', 'LIKE', '%' . $keyword . '%')
+            ->simplePaginate(8);
+        return response()->json($products);
+    }
 }

@@ -1,0 +1,214 @@
+<div class="search-page">
+  <!-- Breadcrumb -->
+  <div class="container my-5">
+    <app-breadcrumb [items]="breadcrumbItems"></app-breadcrumb>
+  </div>
+
+  <div class="container">
+    <div class="search-content">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <!-- Filter Header -->
+        <div class="filter-header">
+          <h3 class="filter-title">
+            <span nz-icon nzType="filter" nzTheme="outline"></span>
+            Bộ lọc
+          </h3>
+          @if (selectedCategories.length > 0 || priceRange[0] > 0 || priceRange[1] < maxPrice) {
+          <button nz-button nzType="link" nzSize="small" (click)="clearAllFilters()">
+            Xóa tất cả
+          </button>
+          }
+        </div>
+
+        <!-- Category Filter -->
+        <div class="filter-section">
+          <h4 class="filter-section-title">Danh mục</h4>
+          <div class="category-list">
+            <!-- Select All -->
+            <div
+              class="category-item category-item-all"
+              [class.active]="isAllCategoriesSelected()"
+              [class.indeterminate]="isSomeCategoriesSelected()"
+              (click)="toggleAllCategories()"
+            >
+              <div class="category-content">
+                <span class="category-name">Tất cả danh mục</span>
+                @if (isAllCategoriesSelected()) {
+                <span nz-icon nzType="check" nzTheme="outline" class="check-icon"></span>
+                } @else if (isSomeCategoriesSelected()) {
+                <span
+                  nz-icon
+                  nzType="minus"
+                  nzTheme="outline"
+                  class="check-icon indeterminate-icon"
+                ></span>
+                }
+              </div>
+            </div>
+
+            <!-- Individual Categories -->
+            @for (category of categories; track category.id) {
+            <div
+              class="category-item"
+              [class.active]="isCategorySelected(category.id)"
+              (click)="toggleCategory(category.id)"
+            >
+              <div class="category-content">
+                <span class="category-name">{{ category.name }}</span>
+                @if (isCategorySelected(category.id)) {
+                <span nz-icon nzType="check" nzTheme="outline" class="check-icon"></span>
+                }
+              </div>
+            </div>
+            }
+          </div>
+        </div>
+
+        <!-- Price Range Filter -->
+        <div class="filter-section">
+          <h4 class="filter-section-title">Khoảng giá</h4>
+          <div class="price-range-wrapper">
+            <nz-slider
+              nzRange
+              [nzMin]="0"
+              [nzMax]="maxPrice"
+              [nzStep]="100000"
+              [(ngModel)]="priceRange"
+              (ngModelChange)="onPriceRangeChange($event)"
+            ></nz-slider>
+            <div class="price-display">
+              <span class="price-value">{{ priceRange[0] | number }}₫</span>
+              <span class="price-separator">-</span>
+              <span class="price-value">{{ priceRange[1] | number }}₫</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Search Input -->
+        <div class="search-input-wrapper">
+          <span nz-icon nzType="search" nzTheme="outline" class="search-icon"></span>
+          <input
+            nz-input
+            type="text"
+            placeholder="Tìm kiếm sản phẩm..."
+            [(ngModel)]="searchQuery"
+            (ngModelChange)="onSearchChange()"
+            class="search-input"
+          />
+          @if (searchQuery) {
+          <button
+            nz-button
+            nzType="text"
+            nzSize="small"
+            class="clear-search"
+            (click)="searchQuery = ''; onSearchChange()"
+          >
+            <span nz-icon nzType="close-circle" nzTheme="fill"></span>
+          </button>
+          }
+        </div>
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+          <div class="toolbar-left">
+            <span class="result-count">
+              Tìm thấy <strong>{{ total }}</strong> sản phẩm
+            </span>
+          </div>
+
+          <div class="toolbar-right">
+            <!-- Sort -->
+            <div class="sort-wrapper">
+              <span class="sort-label">Sắp xếp:</span>
+              <nz-select
+                [(ngModel)]="sortBy"
+                (ngModelChange)="onSortChange($event)"
+                nzSize="small"
+                class="sort-select"
+              >
+                <nz-option nzValue="default" nzLabel="Mặc định"></nz-option>
+                <nz-option nzValue="price-asc" nzLabel="Giá: Thấp đến cao"></nz-option>
+                <nz-option nzValue="price-desc" nzLabel="Giá: Cao đến thấp"></nz-option>
+                <nz-option nzValue="name-asc" nzLabel="Tên: A-Z"></nz-option>
+                <nz-option nzValue="name-desc" nzLabel="Tên: Z-A"></nz-option>
+              </nz-select>
+            </div>
+
+            <!-- View Mode -->
+            <div class="view-mode">
+              <button
+                nz-button
+                nzType="text"
+                nzSize="small"
+                [class.active]="gridColumns === 3"
+                (click)="setGridColumns(3)"
+                title="3 cột"
+              >
+                <span nz-icon nzType="appstore" nzTheme="outline"></span>
+              </button>
+              <button
+                nz-button
+                nzType="text"
+                nzSize="small"
+                [class.active]="gridColumns === 4"
+                (click)="setGridColumns(4)"
+                title="4 cột"
+              >
+                <span nz-icon nzType="table" nzTheme="outline"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Loading State -->
+        @if (isLoading) {
+        <div class="loading-wrapper">
+          <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+        </div>
+        }
+
+        <!-- Empty State -->
+        @else if (paginatedProducts.length === 0) {
+        <div class="empty-wrapper">
+          <nz-empty nzNotFoundContent="Không tìm thấy sản phẩm nào" [nzNotFoundImage]="'simple'">
+            <button nz-button nzType="primary" (click)="clearAllFilters()">Xóa bộ lọc</button>
+          </nz-empty>
+        </div>
+        }
+
+        <!-- Product Grid -->
+        @else {
+        <div
+          class="product-grid"
+          [class.grid-3]="gridColumns === 3"
+          [class.grid-4]="gridColumns === 4"
+        >
+          @for (product of paginatedProducts; track product.id) {
+          <div class="product-card-wrapper">
+            <app-product-card-type [product]="product"></app-product-card-type>
+          </div>
+          }
+        </div>
+
+        <!-- Pagination -->
+        @if (total > pageSize) {
+        <div class="pagination-wrapper">
+          <nz-pagination
+            [nzPageIndex]="currentPage"
+            [nzPageSize]="pageSize"
+            [nzTotal]="total"
+            (nzPageIndexChange)="onPageChange($event)"
+            nzShowSizeChanger
+            [nzPageSizeOptions]="[12, 24, 36, 48]"
+            (nzPageSizeChange)="pageSize = $event; applyFilters()"
+          ></nz-pagination>
+        </div>
+        } }
+      </main>
+    </div>
+  </div>
+</div>
