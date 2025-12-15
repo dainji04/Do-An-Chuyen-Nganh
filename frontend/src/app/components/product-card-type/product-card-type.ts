@@ -1,5 +1,5 @@
 import { Component, Input, inject } from '@angular/core';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, CommonModule } from '@angular/common';
 import { Product } from '../../types/product';
 import { RouterLink } from '@angular/router';
 import { CartService } from '../../services/cart/cart';
@@ -7,7 +7,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'app-product-card-type',
-  imports: [CurrencyPipe, RouterLink],
+  imports: [CurrencyPipe, CommonModule, RouterLink],
   templateUrl: './product-card-type.html',
   styleUrl: './product-card-type.scss',
 })
@@ -27,13 +27,20 @@ export class ProductCardType {
     this.isAddingToCart = true;
     this.cartService.addToCart(Number(this.product.id), 1).subscribe({
       next: (response) => {
-        this.notification.success('Success', 'Product added to cart successfully.');
+        this.notification.success('Thành công', 'Đã thêm sản phẩm vào giỏ hàng.');
         this.isAddingToCart = false;
       },
       error: (error) => {
         console.error('Error adding to cart:', error);
+        this.notification.error('Lỗi', 'Không thể thêm sản phẩm vào giỏ hàng.');
         this.isAddingToCart = false;
       },
     });
+  }
+
+  buyNow(event: Event) {
+    // Optional: Add to cart first, then navigate
+    // For now, just navigate to product detail
+    // The navigation is handled by routerLink
   }
 }
