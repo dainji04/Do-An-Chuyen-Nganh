@@ -1,18 +1,19 @@
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { Router, RouterLink } from '@angular/router';
+import { NavigationEnd, NavigationStart, Router, RouterEvent, RouterLink } from '@angular/router';
 import { User } from '../../types/user';
 import { Auth } from '../../services/auth/auth';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { CartService } from '../../services/cart/cart';
-import { Observable } from 'rxjs';
+import { filter, Observable, Subject, takeUntil } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { trigger, style, transition, animate } from '@angular/animations';
+import { CategoryService } from '../../services/category/category';
 interface QuickLink {
   label: string;
   url: string;
@@ -58,29 +59,46 @@ export class Header implements OnInit {
   user: User | null = null;
   public cartCount$!: Observable<number>;
   @ViewChild('searchInput') searchInput!: ElementRef;
-
   searchText: string = '';
-
   quickLinks: QuickLink[] = [];
+  categories: any[] = [];
   isShowSearch: boolean = false;
+  isShowCategories: boolean = false;
+  private categoriesTimeout: any;
+
+  private destroy$ = new Subject<void>();
 
   private authService: Auth = inject(Auth);
   private cartService: CartService = inject(CartService);
   private message = inject(NzMessageService);
   private router = inject(Router);
-  private http = inject(HttpClient);
+  // private http = inject(HttpClient);
+  private categoryService = inject(CategoryService);
+
   constructor() {
     this.user = this.authService.getCurrentUser();
+  }
+
+  async ngOnInit(): Promise<void> {
+    this.cartCount$ = this.cartService.cartCount$;
+    await this.loadCategories();
+    this.getQuickLinkUrl();
+
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(() => {
+        if (this.isShowSearch) {
+          this.isShowSearch = false;
+        }
+      });
   }
 
   clearSearch() {
     this.searchText = '';
     this.searchInput.nativeElement.focus();
-  }
-
-  async ngOnInit(): Promise<void> {
-    this.cartCount$ = this.cartService.cartCount$;
-    this.getQuickLinkUrl();
   }
 
   logout(event: Event): void {
@@ -116,13 +134,47 @@ export class Header implements OnInit {
   }
 
   getQuickLinkUrl() {
-    this.http.get('http://localhost:8000/api/categories').subscribe((response: any) => {
-      response.data.forEach((category: any) => {
-        this.quickLinks.push({
-          label: category.name,
-          url: category.link,
-        });
+    this.categories.forEach((category: any) => {
+      this.quickLinks.push({
+        label: category.name,
+        url: category.link,
       });
     });
+  }
+
+  async loadCategories(): Promise<void> {
+    this.categories = await this.categoryService.getCategories();
+  }
+
+  showCategoriesDropdown() {
+    if (this.categoriesTimeout) {
+      clearTimeout(this.categoriesTimeout);
+    }
+    this.isShowCategories = true;
+  }
+
+  hideCategoriesDropdown() {
+    this.categoriesTimeout = setTimeout(() => {
+      this.isShowCategories = false;
+    }, 200);
+  }
+
+  showSearchBar() {
+    this.isShowSearch = !this.isShowSearch;
+    if (this.isShowSearch) {
+      setTimeout(() => {
+        this.searchInput.nativeElement.focus();
+      }, 0);
+    }
+  }
+
+  xulyTim(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    let params = {
+      keyword: value,
+      page: 1,
+      limit: 10,
+    };
+    this.router.navigate(['/search'], { queryParams: params });
   }
 }

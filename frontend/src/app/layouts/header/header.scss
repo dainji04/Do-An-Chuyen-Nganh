@@ -9,3 +9,138 @@
 a {
   @apply text-text-primary no-underline;
 }
+
+// Nav Links with Underline Animation
+.header__nav {
+  position: relative;
+}
+
+.nav-item-dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+// Common underline effect with gradient
+.underline-effect {
+  position: relative;
+  padding: 8px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1d1d1f;
+  transition: color 0.3s ease;
+  cursor: pointer;
+
+  span {
+    position: relative;
+    z-index: 1;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-image: linear-gradient(to right, #337ae5 0, #408fe5 34%, #d4734a 71%, #ea6b2e 100%);
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
+
+  &.active::after {
+    width: 100%;
+  }
+
+  &:hover {
+    background-image: linear-gradient(to right, #337ae5 0, #408fe5 34%, #d4734a 71%, #ea6b2e 100%);
+    background-clip: text;
+  }
+}
+
+.nav-link {
+  @extend .underline-effect;
+}
+
+// Categories Dropdown
+.categories-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 8px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 24px 28px;
+  max-width: 700px;
+  z-index: 100;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid white;
+  }
+}
+
+.categories-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+
+    &:hover {
+      background: #999;
+    }
+  }
+}
+
+.category-item {
+  @extend .underline-effect;
+  display: inline-block;
+  padding: 6px 0;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .categories-dropdown {
+    min-width: 90vw;
+    max-width: 500px;
+    padding: 20px;
+  }
+
+  .categories-list {
+    gap: 10px 16px;
+  }
+
+  .category-item {
+    font-size: 13px;
+  }
+}

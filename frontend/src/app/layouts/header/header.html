@@ -11,13 +11,48 @@
       </a>
     </div>
     <nav class="header__nav flex justify-center items-center gap-8">
-      <a routerLink="/home" class="hover:underline">Home</a>
-      <a routerLink="/about" class="hover:underline">About</a>
-      <a routerLink="/contact" class="hover:underline">Contact</a>
+      <a routerLink="/home" routerLinkActive="active" class="nav-link">
+        <span>Trang chủ</span>
+      </a>
+      <div class="nav-item-dropdown">
+        <a
+          class="nav-link"
+          (mouseenter)="showCategoriesDropdown()"
+          (mouseleave)="hideCategoriesDropdown()"
+        >
+          <span>Danh mục</span>
+        </a>
+        @if (isShowCategories) {
+        <div
+          class="categories-dropdown"
+          (mouseenter)="showCategoriesDropdown()"
+          (mouseleave)="hideCategoriesDropdown()"
+          @slideInOut
+        >
+          <div class="categories-list">
+            @for (category of categories; track category.id) {
+            <a
+              [routerLink]="['/search']"
+              [queryParams]="{ category: category.id }"
+              class="category-item underline-effect"
+            >
+              <span>{{ category.name }}</span>
+            </a>
+            }
+          </div>
+        </div>
+        }
+      </div>
+      <a routerLink="/about" routerLinkActive="active" class="nav-link">
+        <span>Giới thiệu</span>
+      </a>
+      <a routerLink="/contact" routerLinkActive="active" class="nav-link">
+        <span>Liên hệ</span>
+      </a>
     </nav>
     <div class="auth flex items-center gap-8">
       <nav class="flex justify-center items-center gap-8">
-        <button (click)="isShowSearch = !isShowSearch">
+        <button (click)="showSearchBar()">
           <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="44px" viewBox="0 0 15 44">
             <path
               d="M14.298,27.202l-3.87-3.87c0.701-0.929,1.122-2.081,1.122-3.332c0-3.06-2.489-5.55-5.55-5.55c-3.06,0-5.55,2.49-5.55,5.55 c0,3.061,2.49,5.55,5.55,5.55c1.251,0,2.403-0.421,3.332-1.122l3.87,3.87c0.151,0.151,0.35,0.228,0.548,0.228 s0.396-0.076,0.548-0.228C14.601,27.995,14.601,27.505,14.298,27.202z M1.55,20c0-2.454,1.997-4.45,4.45-4.45 c2.454,0,4.45,1.997,4.45,4.45S8.454,24.45,6,24.45C3.546,24.45,1.55,22.454,1.55,20z"
@@ -107,14 +142,14 @@
         <input
           #searchInput
           type="text"
+          (keydown.enter)="xulyTim($event)"
           [(ngModel)]="searchText"
           class="w-full bg-transparent border-none outline-none text-[24px] text-gray-900 placeholder:text-gray-400 ml-4 font-normal py-2 leading-tight"
           placeholder="Tìm kiếm trên dainji.id.vn"
           autocomplete="off"
         />
-
+        @if (searchText) {
         <button
-          *ngIf="searchText"
           (click)="clearSearch()"
           class="absolute right-0 p-1 text-white bg-gray-400 rounded-full hover:bg-gray-500 transition-colors"
         >
@@ -131,6 +166,7 @@
             />
           </svg>
         </button>
+        }
       </div>
 
       <div class="w-full">

@@ -1,15 +1,18 @@
 header,
-footer {
-  position: relative;
-  z-index: 2;
-}
+footer,
 .body {
   position: relative;
-  z-index: 1;
 }
 
 header {
+  z-index: 3;
   background-color: #fff;
+}
+footer {
+  z-index: 2;
+}
+.body {
+  z-index: 1;
 }
 
 .black-screen {
