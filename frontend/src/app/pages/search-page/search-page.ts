@@ -20,12 +20,10 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { CategoryService } from '../../services/category/category';
 import { Products } from '../../services/products/products';
-import { Observable } from 'rxjs';
 import { Category } from '../../types/category';
-import { Product } from '../../types/product';
+import { Product, ProductResponse } from '../../types/product';
 import { ProductCardType } from '../../components/product-card-type/product-card-type';
 import { CommonModule } from '@angular/common';
-
 interface BreadcrumbItem {
   label: string;
   url?: string;
@@ -55,6 +53,9 @@ export class SearchPage implements OnChanges, OnInit {
   @Input({ transform: numberAttribute }) page: number = 1;
   @Input({ transform: numberAttribute }) limit: number = 12;
 
+  // response
+  productResponse!: ProductResponse;
+
   // Data
   categories: Category[] = [];
   products: Product[] = [];
@@ -68,11 +69,10 @@ export class SearchPage implements OnChanges, OnInit {
 
   // Sort and view
   sortBy: string = 'default';
-  gridColumns: number = 4;
 
   // Pagination
   currentPage: number = 1;
-  pageSize: number = 12;
+  pageSize: number = 9;
   total: number = 0;
 
   // Loading
@@ -91,7 +91,7 @@ export class SearchPage implements OnChanges, OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['keyword']) {
       this.searchQuery = this.keyword;
-      this.applyFilters();
+      // this.applyFilters();
     }
   }
 
@@ -102,9 +102,11 @@ export class SearchPage implements OnChanges, OnInit {
   loadProducts(): void {
     this.isLoading = true;
     this.productService.searchProducts(this.keyword).subscribe({
-      next: (data) => {
+      next: (data: ProductResponse) => {
+        this.productResponse = data;
         this.products = data.data;
-        this.applyFilters();
+        // this.applyFilters();
+        this.total = this.products.length;
         this.isLoading = false;
       },
       error: (error) => {
@@ -122,7 +124,7 @@ export class SearchPage implements OnChanges, OnInit {
     } else {
       this.selectedCategories.push(categoryId);
     }
-    this.applyFilters();
+    //this.applyFilters();
   }
 
   isCategorySelected(categoryId: number): boolean {
@@ -135,7 +137,7 @@ export class SearchPage implements OnChanges, OnInit {
     } else {
       this.selectedCategories = this.categories.map((c) => c.id);
     }
-    this.applyFilters();
+    //this.applyFilters();
   }
 
   isAllCategoriesSelected(): boolean {
@@ -151,12 +153,12 @@ export class SearchPage implements OnChanges, OnInit {
   // Price range filter
   onPriceRangeChange(value: [number, number]): void {
     this.priceRange = value;
-    this.applyFilters();
+    //this.applyFilters();
   }
 
   // Search
   onSearchChange(): void {
-    this.applyFilters();
+    this.loadProducts();
   }
 
   // Apply all filters
@@ -213,11 +215,6 @@ export class SearchPage implements OnChanges, OnInit {
     }
   }
 
-  // View mode
-  setGridColumns(columns: number): void {
-    this.gridColumns = columns;
-  }
-
   // Clear filters
   clearAllFilters(): void {
     this.selectedCategories = [];
@@ -225,19 +222,12 @@ export class SearchPage implements OnChanges, OnInit {
     this.searchQuery = '';
     this.sortBy = 'default';
     this.currentPage = 1;
-    this.applyFilters();
+    //this.applyFilters();
   }
 
   // Pagination
   onPageChange(page: number): void {
     this.currentPage = page;
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  // Get paginated products
-  get paginatedProducts(): Product[] {
-    const start = (this.currentPage - 1) * this.pageSize;
-    const end = start + this.pageSize;
-    return this.filteredProducts.slice(start, end);
   }
 }

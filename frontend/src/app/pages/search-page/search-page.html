@@ -95,7 +95,7 @@
             nz-input
             type="text"
             placeholder="Tìm kiếm sản phẩm..."
-            [(ngModel)]="searchQuery"
+            [(ngModel)]="keyword"
             (ngModelChange)="onSearchChange()"
             class="search-input"
           />
@@ -137,30 +137,6 @@
                 <nz-option nzValue="name-desc" nzLabel="Tên: Z-A"></nz-option>
               </nz-select>
             </div>
-
-            <!-- View Mode -->
-            <div class="view-mode">
-              <button
-                nz-button
-                nzType="text"
-                nzSize="small"
-                [class.active]="gridColumns === 3"
-                (click)="setGridColumns(3)"
-                title="3 cột"
-              >
-                <span nz-icon nzType="appstore" nzTheme="outline"></span>
-              </button>
-              <button
-                nz-button
-                nzType="text"
-                nzSize="small"
-                [class.active]="gridColumns === 4"
-                (click)="setGridColumns(4)"
-                title="4 cột"
-              >
-                <span nz-icon nzType="table" nzTheme="outline"></span>
-              </button>
-            </div>
           </div>
         </div>
 
@@ -172,7 +148,7 @@
         }
 
         <!-- Empty State -->
-        @else if (paginatedProducts.length === 0) {
+        @else if (products.length === 0) {
         <div class="empty-wrapper">
           <nz-empty nzNotFoundContent="Không tìm thấy sản phẩm nào" [nzNotFoundImage]="'simple'">
             <button nz-button nzType="primary" (click)="clearAllFilters()">Xóa bộ lọc</button>
@@ -182,29 +158,22 @@
 
         <!-- Product Grid -->
         @else {
-        <div
-          class="product-grid"
-          [class.grid-3]="gridColumns === 3"
-          [class.grid-4]="gridColumns === 4"
-        >
-          @for (product of paginatedProducts; track product.id) {
-          <div class="product-card-wrapper">
-            <app-product-card-type [product]="product"></app-product-card-type>
-          </div>
+        <div class="grid grid-cols-3 gap-4">
+          @for (product of products; track product.id) {
+          <app-product-card-type [product]="product"></app-product-card-type>
+          <!-- <div class="product-card-wrapper">
+          </div> -->
           }
         </div>
 
         <!-- Pagination -->
-        @if (total > pageSize) {
-        <div class="pagination-wrapper">
+        @if (productResponse.total > productResponse.per_page) {
+        <div class="mt-5 flex justify-center">
           <nz-pagination
-            [nzPageIndex]="currentPage"
-            [nzPageSize]="pageSize"
-            [nzTotal]="total"
+            [nzPageIndex]="productResponse.current_page"
+            [nzPageSize]="productResponse.per_page"
+            [nzTotal]="productResponse.total"
             (nzPageIndexChange)="onPageChange($event)"
-            nzShowSizeChanger
-            [nzPageSizeOptions]="[12, 24, 36, 48]"
-            (nzPageSizeChange)="pageSize = $event; applyFilters()"
           ></nz-pagination>
         </div>
         } }

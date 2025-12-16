@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { simpleDataProduct } from '../../types/product';
+import { ProductResponse } from '../../types/product';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +11,8 @@ export class Products {
 
   constructor(private http: HttpClient) {}
 
-  getProducts(): Observable<simpleDataProduct> {
-    return this.http.get<simpleDataProduct>(this.apiUrl);
+  getProducts(): Observable<ProductResponse> {
+    return this.http.get<ProductResponse>(this.apiUrl);
   }
 
   getProductById(id: number): Observable<any> {
@@ -20,13 +20,13 @@ export class Products {
     return this.http.get<any>(url);
   }
 
-  getProductsByCategory(categoryName: string): Observable<simpleDataProduct> {
+  getProductsByCategory(categoryName: string): Observable<ProductResponse> {
     const url = `${this.apiUrl}?category=${categoryName}`;
-    return this.http.get<simpleDataProduct>(url);
+    return this.http.get<ProductResponse>(url);
   }
 
-  searchProducts(keyword: string): Observable<simpleDataProduct> {
+  searchProducts(keyword: string): Observable<ProductResponse> {
     const url = `${this.apiUrl}/search`;
-    return this.http.post<simpleDataProduct>(url, { keyword });
+    return this.http.post<ProductResponse>(url, { keyword });
   }
 }

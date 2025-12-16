@@ -1,4 +1,4 @@
-import { simplePaginateResponse } from './simplePaginateResponse';
+import { paginateResponse } from './paginateResponse';
 
 interface rawProduct {
   id: string;
@@ -28,6 +28,6 @@ interface imageProduct {
   image: string;
 }
 
-export interface simpleDataProduct extends simplePaginateResponse {
+export interface ProductResponse extends paginateResponse {
   data: Product[];
 }
