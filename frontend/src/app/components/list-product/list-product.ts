@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { ProductItem } from '../product-item/product-item';
 import { register } from 'swiper/element/bundle';
-import { Product, simpleDataProduct } from '../../types/product';
+import { Product, ProductResponse } from '../../types/product';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { Products } from '../../services/products/products';
@@ -47,7 +47,7 @@ export class ListProduct {
 
   getProducts() {
     this.productService.getProducts().subscribe({
-      next: (data: simpleDataProduct) => {
+      next: (data: ProductResponse) => {
         this.products = data.data;
         this.isLoading = false;
       },

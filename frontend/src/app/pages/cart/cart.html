@@ -41,13 +41,26 @@
       <!-- Cart Items -->
       <div class="bg-white rounded-xl p-6 shadow">
         <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-100">
-          <h2 class="text-lg font-semibold text-gray-900 m-0">Sản phẩm</h2>
+          <div class="flex items-center gap-3">
+            <label
+              nz-checkbox
+              [(ngModel)]="allChecked"
+              [nzIndeterminate]="indeterminate"
+              (ngModelChange)="onAllChecked($event)"
+            >
+              <span class="text-lg font-semibold text-gray-900"> Chọn tất cả </span>
+            </label>
+            <span class="text-sm text-gray-500">
+              (Đã chọn {{ selectedItems.size }}/{{ cartItems.length }})
+            </span>
+          </div>
           <button
             nz-button
             nzType="text"
             nzDanger
             (click)="clearCart()"
             class="text-red-600 text-sm hover:text-red-400"
+            style="display: flex; justify-content: center; align-items: center"
           >
             <span nz-icon nzType="delete" nzTheme="outline"></span>
             Xóa tất cả
@@ -57,8 +70,17 @@
         <div class="flex flex-col gap-5">
           <div
             *ngFor="let item of cartItems"
-            class="grid grid-cols-[100px_1fr_auto_auto_auto] gap-4 p-4 border border-gray-100 rounded-lg items-center transition hover:border-indigo-400 hover:shadow-md"
+            class="grid grid-cols-[auto_100px_1fr_auto_auto_auto] gap-4 p-4 border border-gray-100 rounded-lg items-center transition hover:border-indigo-400 hover:shadow-md"
           >
+            <!-- Checkbox -->
+            <div class="flex items-center justify-center">
+              <label
+                nz-checkbox
+                [ngModel]="isItemSelected(item.id)"
+                (ngModelChange)="onItemChecked(item.id, $event)"
+              ></label>
+            </div>
+
             <!-- Product Image -->
             <div class="w-24 h-24 rounded-md overflow-hidden bg-gray-100">
               <img
@@ -134,41 +156,44 @@
       <div class="">
         <div class="bg-white rounded-xl p-6 shadow sticky top-5">
           <h2 class="text-lg font-semibold text-gray-900 mb-4 pb-3 border-b border-gray-100">
-            Tóm tắt đơn hàng
+            Tóm tắt giỏ hàng
           </h2>
+
+          <!-- Tổng thanh toán (sản phẩm đã chọn) -->
+          <div class="mb-3 p-3 bg-blue-50 rounded-lg">
+            <p class="text-sm text-blue-600 mb-2 font-medium">
+              <span nz-icon nzType="info-circle" nzTheme="outline"></span>
+              Thanh toán ({{ selectedItems.size }} sản phẩm đã chọn)
+            </p>
+          </div>
 
           <div class="flex justify-between items-center text-sm text-gray-600 mb-3">
             <span>Tạm tính:</span>
-            <span class="font-semibold text-gray-900">{{ formatCurrency(getSubtotal()) }}</span>
+            <span class="font-semibold text-gray-900">{{
+              formatCurrency(getSelectedSubtotal())
+            }}</span>
           </div>
 
           <div class="flex justify-between items-center text-sm text-gray-600 mb-3">
             <span>Phí vận chuyển:</span>
-            <span class="font-semibold text-gray-900">{{ formatCurrency(getShippingFee()) }}</span>
+            <span class="font-semibold text-gray-900">{{
+              formatCurrency(getSelectedShippingFee())
+            }}</span>
           </div>
 
           <div class="h-px bg-gray-100 my-4"></div>
 
           <div class="flex justify-between items-center text-lg font-bold text-gray-900 mb-4">
-            <span>Tổng cộng:</span>
-            <span class="text-2xl text-indigo-600">{{ formatCurrency(getTotal()) }}</span>
-          </div>
-
-          <div class="mb-4">
-            <nz-radio-group [(ngModel)]="radioValue" class="flex flex-col gap-5">
-              <label nz-radio nzValue="Momo" class="text-base">Thanh toán với Momo</label><br />
-              <label nz-radio nzValue="thanhtoantaicho" class="text-base">
-                Thanh toán khi nhận hàng
-              </label>
-            </nz-radio-group>
+            <span>Tổng thanh toán:</span>
+            <span class="text-2xl text-indigo-600">{{ formatCurrency(getSelectedTotal()) }}</span>
           </div>
 
           <button
+            style="display: flex; justify-content: center; align-items: center"
             nz-button
             nzType="primary"
             nzSize="large"
             nzBlock
-            class="h-12 text-lg font-semibold bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-md"
             (click)="checkout()"
           >
             <span nz-icon nzType="credit-card" nzTheme="outline"></span>

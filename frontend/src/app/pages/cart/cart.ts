@@ -12,9 +12,10 @@ import { CartService } from '../../services/cart/cart';
 
 import { CartItem, cartItemsResponse } from '../../types/cart';
 import { NzInputModule } from 'ng-zorro-antd/input';
-import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { Observable } from 'rxjs';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -30,9 +31,9 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
     NzModalModule,
     FormsModule,
     NzInputModule,
-    NzRadioModule,
     AsyncPipe,
     NzPaginationModule,
+    NzCheckboxModule,
   ],
   templateUrl: './cart.html',
   // Styling migrated to Tailwind utility classes in the template
@@ -42,12 +43,15 @@ export class Cart implements OnInit {
   cartCount$!: Observable<number>;
   cartData!: cartItemsResponse;
   loading = false;
-  radioValue = 'Momo';
+  selectedItems: Set<number> = new Set();
+  allChecked = false;
+  indeterminate = false;
 
   constructor(
     private message: NzMessageService,
     private modal: NzModalService,
-    private cartService: CartService
+    private cartService: CartService,
+    private router: Router
   ) {
     this.cartCount$ = this.cartService.cartCount$;
   }
@@ -141,26 +145,73 @@ export class Cart implements OnInit {
   }
 
   checkout(): void {
-    if (this.cartItems.length === 0) {
-      this.message.warning('Giỏ hàng trống');
+    if (this.selectedItems.size === 0) {
+      this.message.warning('Vui lòng chọn ít nhất một sản phẩm để thanh toán');
       return;
     }
-    // amount is not grater than 50,000,000 VND
-    if (this.getTotal() > 50000000) {
+
+    // Kiểm tra số tiền không được vượt quá 50 triệu VND
+    if (this.getSelectedTotal() > 50000000) {
       this.message.warning('Số tiền thanh toán không được vượt quá 50,000,000 VND');
       return;
     }
 
-    const amount = this.getTotal().toString();
-    const payUrl = 'http://localhost:3000/home';
+    // Lưu các sản phẩm đã chọn vào localStorage
+    const selectedCartItems = this.cartItems.filter((item) => this.selectedItems.has(item.id));
+    localStorage.setItem('selectedCartItems', JSON.stringify(selectedCartItems));
 
-    this.cartService.momoPayment(amount, payUrl).subscribe({
-      next: (response) => {
-        window.location.href = response.payUrl;
-      },
-      error: (error) => {
-        console.error('Error during Momo payment:', error);
-      },
+    // Điều hướng đến trang checkout
+    this.router.navigate(['/checkout']);
+  }
+
+  // Xử lý khi check/uncheck một item
+  onItemChecked(itemId: number, checked: boolean): void {
+    if (checked) {
+      this.selectedItems.add(itemId);
+    } else {
+      this.selectedItems.delete(itemId);
+    }
+    this.updateCheckAllStatus();
+  }
+
+  // Xử lý khi check/uncheck tất cả
+  onAllChecked(checked: boolean): void {
+    this.cartItems.forEach((item) => {
+      if (checked) {
+        this.selectedItems.add(item.id);
+      } else {
+        this.selectedItems.delete(item.id);
+      }
     });
+    this.updateCheckAllStatus();
+  }
+
+  // Cập nhật trạng thái checkbox "Chọn tất cả"
+  updateCheckAllStatus(): void {
+    const selectedCount = this.selectedItems.size;
+    this.allChecked = selectedCount === this.cartItems.length && this.cartItems.length > 0;
+    this.indeterminate = selectedCount > 0 && selectedCount < this.cartItems.length;
+  }
+
+  // Kiểm tra xem item có được chọn không
+  isItemSelected(itemId: number): boolean {
+    return this.selectedItems.has(itemId);
+  }
+
+  // Tính tổng của các sản phẩm đã chọn
+  getSelectedSubtotal(): number {
+    return this.cartItems
+      .filter((item) => this.selectedItems.has(item.id))
+      .reduce((sum, item) => sum + this.getItemTotal(item), 0);
+  }
+
+  // Tính phí ship của các sản phẩm đã chọn
+  getSelectedShippingFee(): number {
+    return this.selectedItems.size > 0 ? 30000 : 0;
+  }
+
+  // Tính tổng tiền của các sản phẩm đã chọn
+  getSelectedTotal(): number {
+    return this.getSelectedSubtotal() + this.getSelectedShippingFee();
   }
 }

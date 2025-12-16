@@ -42,7 +42,7 @@ class ProductController extends Controller
         $products = Product::where('productname', 'LIKE', '%' . $keyword . '%')
             ->orWhere("description", 'LIKE', '%' . $keyword . '%')
             ->orWhere('detail', 'LIKE', '%' . $keyword . '%')
-            ->simplePaginate(8);
+            ->paginate(9);
         return response()->json($products);
     }
 }
