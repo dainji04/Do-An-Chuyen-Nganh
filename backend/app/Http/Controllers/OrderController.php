@@ -52,7 +52,7 @@ class OrderController extends Controller
                     'price' => $item['price'],
                     'total' => $item['price'] * $item['quantity'],
                 ]);
-                
+
                 // Collect product IDs to remove from cart
                 $productIdsToRemove[] = $item['product_id'];
             }
