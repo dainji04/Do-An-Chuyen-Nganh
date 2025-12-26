@@ -18,9 +18,9 @@ class CategoryController extends Controller
             $imagePath = null;
             if ($category->representativeProduct && $category->representativeProduct->image) {
                 // Tạo đường dẫn đầy đủ: http://your-domain.com/images/ten-anh.jpg
-                $imagePath = asset('images/' . $category->representativeProduct->image);
+                $imagePath = $category->representativeProduct->image;
             } else {
-                $imagePath = asset('images/default-placeholder.png');
+                $imagePath = 'default-placeholder.png';
             }
 
             return [

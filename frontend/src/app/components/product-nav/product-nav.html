@@ -1,7 +1,7 @@
 <section class="product-categories">
   <div class="categories-container">
     @for (category of categories; track category.id) {
-    <a [href]="category.link" class="category-item">
+    <a [href]="'/search?keyword=' + category.name" class="category-item">
       <div class="category-image-wrapper">
         <img [src]="category.image" [alt]="category.name" class="category-image" />
       </div>

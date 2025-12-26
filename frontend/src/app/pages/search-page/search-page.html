@@ -154,15 +154,10 @@
             <button nz-button nzType="primary" (click)="clearAllFilters()">Xóa bộ lọc</button>
           </nz-empty>
         </div>
-        }
-
-        <!-- Product Grid -->
-        @else {
+        } @else {
         <div class="grid grid-cols-3 gap-4">
           @for (product of products; track product.id) {
           <app-product-card-type [product]="product"></app-product-card-type>
-          <!-- <div class="product-card-wrapper">
-          </div> -->
           }
         </div>
 

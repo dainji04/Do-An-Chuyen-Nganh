@@ -34,6 +34,7 @@ import {
   SafetyCertificateOutline,
   ShoppingOutline,
   LoadingOutline,
+  HomeOutline,
 } from '@ant-design/icons-angular/icons';
 import { AuthInterceptor } from './interceptor/auth';
 
@@ -56,6 +57,7 @@ const icons = [
   SafetyCertificateOutline,
   ShoppingOutline,
   LoadingOutline,
+  HomeOutline,
 ];
 
 export const appConfig: ApplicationConfig = {

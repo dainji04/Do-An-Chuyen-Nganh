@@ -23,7 +23,7 @@ export class App implements OnInit {
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: any) => {
         // Ẩn header/footer cho các route: /login, /register
-        const hideLayoutRoutes = ['/login', '/register'];
+        const hideLayoutRoutes = ['/login', '/register', '/auth/callback'];
         this.showHeaderFooter = !hideLayoutRoutes.includes(event.urlAfterRedirects);
       });
   }

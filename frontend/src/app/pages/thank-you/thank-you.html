@@ -1,0 +1,88 @@
+<div class="thank-you-container">
+  <nz-card class="thank-you-card">
+    <nz-result
+      nzStatus="success"
+      nzTitle="Đặt hàng thành công!"
+      nzSubTitle="Cảm ơn bạn đã mua sắm tại cửa hàng của chúng tôi. Đơn hàng của bạn đã được xác nhận và đang được xử lý."
+    >
+      <div nz-result-extra>
+        @if (orderInfo) {
+        <div class="order-summary">
+          <h3><i nz-icon nzType="shopping" nzTheme="outline"></i> Thông tin đơn hàng</h3>
+
+          <div class="order-details">
+            @if (orderInfo.orderId) {
+            <div class="order-row">
+              <span class="label">Mã đơn hàng:</span>
+              <span class="value">#{{ orderInfo.orderId }}</span>
+            </div>
+            } @if (orderInfo.paymentMethod) {
+            <div class="order-row">
+              <span class="label">Phương thức thanh toán:</span>
+              <span class="value">
+                @if (orderInfo.paymentMethod === 'cod') {
+                <span
+                  ><i nz-icon nzType="dollar" nzTheme="outline"></i> Thanh toán khi nhận hàng
+                  (COD)</span
+                >
+                } @else if (orderInfo.paymentMethod === 'momo') {
+                <span><i nz-icon nzType="wallet" nzTheme="outline"></i> Ví MoMo</span>
+                } @else {
+                {{ orderInfo.paymentMethod }}
+                }
+              </span>
+            </div>
+            } @if (orderInfo.total) {
+            <div class="order-row total">
+              <span class="label">Tổng tiền:</span>
+              <span class="value price">{{ formatCurrency(orderInfo.total) }}</span>
+            </div>
+            } @if (orderInfo.address) {
+            <div class="order-row">
+              <span class="label">Địa chỉ giao hàng:</span>
+              <span class="value">{{ orderInfo.address }}</span>
+            </div>
+            }
+          </div>
+        </div>
+        }
+
+        <div class="next-steps">
+          <h4><i nz-icon nzType="info-circle" nzTheme="outline"></i> Bước tiếp theo:</h4>
+          <ul>
+            <li>
+              <i nz-icon nzType="check-circle" nzTheme="fill"></i> Chúng tôi sẽ xác nhận đơn hàng
+              của bạn qua email
+            </li>
+            <li>
+              <i nz-icon nzType="check-circle" nzTheme="fill"></i> Đơn hàng sẽ được chuẩn bị và giao
+              trong vòng 2-3 ngày
+            </li>
+            <li>
+              <i nz-icon nzType="check-circle" nzTheme="fill"></i> Bạn có thể theo dõi trạng thái
+              đơn hàng trong tài khoản của mình
+            </li>
+          </ul>
+        </div>
+
+        <div class="action-buttons">
+          <button nz-button nzType="primary" nzSize="large" (click)="goToHome()">
+            <i nz-icon nzType="home" nzTheme="outline"></i>
+            Về trang chủ
+          </button>
+        </div>
+      </div>
+    </nz-result>
+  </nz-card>
+
+  <div class="additional-info">
+    <nz-card nzTitle="Liên hệ hỗ trợ">
+      <p>
+        <i nz-icon nzType="phone" nzTheme="outline"></i>
+        Nếu bạn có bất kỳ thắc mắc nào, vui lòng liên hệ:
+      </p>
+      <p><strong>Hotline:</strong> 1900-xxxx</p>
+      <p><strong>Email:</strong> support@example.com</p>
+    </nz-card>
+  </div>
+</div>

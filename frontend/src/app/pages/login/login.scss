@@ -1,3 +1,8 @@
+nz-divider::after,
+nz-divider::before {
+  border-color: #000000 !important;
+}
+
 .login-container {
   min-height: 100vh;
   display: flex;
@@ -66,7 +71,6 @@ nz-form-item {
   height: 45px;
   font-size: 16px;
   font-weight: 600;
-  margin-bottom: 24px;
   background: #1a1a1a;
   border: none;
   border-radius: 8px;

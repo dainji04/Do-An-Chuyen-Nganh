@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\GoogleAuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,21 @@ Route::get('/products/{id}', [ProductController::class, 'getProductById']);
 
 Route::get('/categories', [App\Http\Controllers\CategoryController::class, 'index']);
 
+// Google OAuth routes
+
+Route::get('/auth/google/url', [GoogleAuthController::class, 'getGoogleAuthUrl']);
+Route::post('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
+
+Route::get('/test-ssl', function () {
+    $path = 'C:/wamp64/ssl/cacert.pem'; // Nhập y hệt đường dẫn bạn dùng trong Provider
+
+    return response()->json([
+        'duong_dan_da_khai_bao' => $path,
+        'file_co_ton_tai_khong' => file_exists($path) ? 'CÓ (OK)' : 'KHÔNG (SAI ĐƯỜNG DẪN)',
+        'gia_tri_curl_hien_tai' => ini_get('curl.cainfo'),
+        'gia_tri_openssl_hien_tai' => ini_get('openssl.cafile'),
+    ]);
+});
 
 // Protected routes (cần authentication)
 Route::middleware(['auth:sanctum'])->group(function () {

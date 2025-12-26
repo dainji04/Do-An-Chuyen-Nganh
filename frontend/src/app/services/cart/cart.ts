@@ -12,7 +12,7 @@ export interface CartResponse {
   providedIn: 'root',
 })
 export class CartService {
-  private apiUrl = 'http://localhost:8000/api';
+  private apiUrl = 'http://localhost:8000 /api';
   private cartCountSubject = new BehaviorSubject<number>(0);
   public cartCount$ = this.cartCountSubject.asObservable();
 

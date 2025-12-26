@@ -23,7 +23,7 @@ interface RegisterFormData {
   providedIn: 'root',
 })
 export class Auth {
-  private apiUrl = 'http://localhost:8000/api';
+  private apiUrl = 'http://localhost:8000 /api';
   private currentUserSubject: BehaviorSubject<User | null>;
   public currentUser: Observable<User | null>;
 
@@ -35,6 +35,23 @@ export class Auth {
 
   public get currentUserValue(): User | null {
     return this.currentUserSubject.value;
+  }
+
+  // google
+  getGoogleAuthUrl(): Observable<{ url: string }> {
+    return this.http.get<{ url: string }>(`${this.apiUrl}/auth/google/url`);
+  }
+
+  // 2. Gửi 'code' về Laravel để lấy token
+  loginWithGoogle(code: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/auth/google/callback`, { code }).pipe(
+      tap((response: any) => {
+        if (response.token) {
+          this.saveAuthData(response);
+          this.currentUserSubject.next(response.user);
+        }
+      })
+    );
   }
 
   // register

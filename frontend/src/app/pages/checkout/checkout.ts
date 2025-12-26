@@ -166,10 +166,19 @@ export class Checkout implements OnInit {
     // Nếu chọn Momo
     if (this.paymentMethod === 'momo') {
       const amount = this.getTotal().toString();
-      const payUrl = 'http://localhost:3000/home';
+      const payUrl = 'https://dainji.id.vn/thank-you';
 
       this.cartService.momoPayment(amount, payUrl).subscribe({
         next: (response) => {
+          // Lưu thông tin đơn hàng
+          const orderInfo = {
+            orderId: response.orderId || Date.now().toString(),
+            total: this.getTotal(),
+            paymentMethod: 'momo',
+            address: this.checkoutForm.value.address,
+          };
+          localStorage.setItem('lastOrder', JSON.stringify(orderInfo));
+
           // Xóa selected items khỏi localStorage
           localStorage.removeItem('selectedCartItems');
           window.location.href = response.payUrl;
@@ -188,9 +197,22 @@ export class Checkout implements OnInit {
       // Giả lập API call
       setTimeout(() => {
         this.message.success('Đặt hàng thành công! Cảm ơn bạn đã mua hàng.');
+
+        // Lưu thông tin đơn hàng để hiển thị trong trang thank you
+        const orderInfo = {
+          orderId: Date.now().toString(),
+          total: this.getTotal(),
+          paymentMethod: 'cod',
+          address: this.checkoutForm.value.address,
+        };
+
         localStorage.removeItem('selectedCartItems');
         this.submitting = false;
-        this.router.navigate(['/home']);
+
+        // Chuyển đến trang thank you với thông tin đơn hàng
+        this.router.navigate(['/thank-you'], {
+          state: { orderInfo },
+        });
       }, 1500);
     }
   }

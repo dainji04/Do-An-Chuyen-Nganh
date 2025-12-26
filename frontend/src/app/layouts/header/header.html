@@ -31,11 +31,7 @@
         >
           <div class="categories-list">
             @for (category of categories; track category.id) {
-            <a
-              [routerLink]="['/search']"
-              [queryParams]="{ category: category.id }"
-              class="category-item underline-effect"
-            >
+            <a [href]="'/search?keyword=' + category.name" class="category-item underline-effect">
               <span>{{ category.name }}</span>
             </a>
             }
@@ -112,7 +108,7 @@
       </div>
 
       } @else {
-      <a routerLink="/login" class="mr-4">Login</a>
+      <a routerLink="/login" class="mr-4">Đăng nhập</a>
       }
     </div>
   </div>
@@ -176,7 +172,7 @@
           @for (link of quickLinks; track $index) {
           <li>
             <a
-              [href]="link.url"
+              [href]="'/search?keyword=' + link.label"
               class="group flex items-center py-2 -mx-4 px-4 rounded-lg cursor-pointer hover:bg-[#F5F5F7] transition-colors duration-200 ease-in-out"
             >
               <span

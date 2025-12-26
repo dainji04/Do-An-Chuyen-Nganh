@@ -48,9 +48,6 @@ export class Login {
       this.isLoading = true;
       const { email, password, remember } = this.loginForm.value;
 
-      // TODO: Integrate with backend API
-      console.log('Login with:', { email, password, remember });
-
       this.authService.login(email, password, remember).subscribe({
         next: () => {
           this.isLoading = false;
@@ -75,6 +72,13 @@ export class Login {
   loginWithGoogle(): void {
     this.message.info('Tính năng đăng nhập với Google đang phát triển');
     // TODO: Implement Google OAuth
+    this.authService.getGoogleAuthUrl().subscribe({
+      next: (response) => {
+        // Chuyển hướng trình duyệt sang trang Google
+        window.location.href = response.url;
+      },
+      error: (err) => console.error('Error getting auth url', err),
+    });
   }
 
   loginWithFacebook(): void {

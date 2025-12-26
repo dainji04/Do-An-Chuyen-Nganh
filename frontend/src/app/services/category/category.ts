@@ -12,7 +12,7 @@ interface CategoryResponse {
   providedIn: 'root',
 })
 export class CategoryService {
-  private apiUrl = 'http://localhost:8000/api';
+  private apiUrl = 'http://localhost:8000 /api';
   private categories: Category[] = [];
 
   private http = inject(HttpClient);
