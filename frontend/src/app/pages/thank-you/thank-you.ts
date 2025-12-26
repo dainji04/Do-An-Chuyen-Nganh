@@ -59,7 +59,9 @@ export class ThankYou implements OnInit {
         });
       } else {
         // Thanh toán thất bại
-        this.message.error('Thanh toán thất bại. Đơn hàng vẫn được lưu với trạng thái chưa thanh toán.');
+        this.message.error(
+          'Thanh toán thất bại. Đơn hàng vẫn được lưu với trạng thái chưa thanh toán.'
+        );
         // Vẫn hiển thị thông tin đơn hàng
         this.orderService.getOrderDetail(parseInt(orderId)).subscribe({
           next: (order) => {

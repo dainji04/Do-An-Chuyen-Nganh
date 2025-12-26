@@ -191,7 +191,7 @@ export class Checkout implements OnInit {
             next: (momoResponse) => {
               // Lưu orderId để update payment status sau khi callback
               localStorage.setItem('pendingMomoOrderId', orderResponse.order.id.toString());
-              
+
               // Xóa selected items khỏi localStorage
               localStorage.removeItem('selectedCartItems');
 
