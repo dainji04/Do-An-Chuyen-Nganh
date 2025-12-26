@@ -115,7 +115,7 @@ export class Header implements OnInit {
 
   goToProfile(event: Event): void {
     event.stopPropagation();
-    console.log('Profile clicked');
+    this.router.navigate(['/profile']);
   }
 
   goToSettings(event: Event): void {

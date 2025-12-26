@@ -17,6 +17,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { CartService } from '../../services/cart/cart';
 import { CartItem } from '../../types/cart';
+import { OrderService } from '../../services/order/order';
 
 interface UserInfo {
   username: string;
@@ -55,6 +56,7 @@ export class Checkout implements OnInit {
     private fb: FormBuilder,
     private message: NzMessageService,
     private cartService: CartService,
+    private orderService: OrderService,
     private router: Router
   ) {}
 
@@ -165,55 +167,90 @@ export class Checkout implements OnInit {
 
     // Nếu chọn Momo
     if (this.paymentMethod === 'momo') {
-      const amount = this.getTotal().toString();
-      const payUrl = 'https://dainji.id.vn/thank-you';
+      // Tạo order data giống như COD
+      const orderData = {
+        total: this.getTotal(),
+        address: this.checkoutForm.value.address,
+        note: this.checkoutForm.value.note || '',
+        items: this.selectedItems.map((item) => ({
+          product_id: item.product_id,
+          quantity: item.quantity,
+          price: item.price,
+        })),
+      };
 
-      this.cartService.momoPayment(amount, payUrl).subscribe({
-        next: (response) => {
-          // Lưu thông tin đơn hàng
-          const orderInfo = {
-            orderId: response.orderId || Date.now().toString(),
-            total: this.getTotal(),
-            paymentMethod: 'momo',
-            address: this.checkoutForm.value.address,
-          };
-          localStorage.setItem('lastOrder', JSON.stringify(orderInfo));
+      // Tạo order TRƯỚC khi redirect đến Momo
+      this.orderService.createOrder(orderData).subscribe({
+        next: (orderResponse) => {
+          // Order đã được tạo và lưu vào history, cart đã được clear
+          const amount = this.getTotal().toString();
+          const payUrl = 'https://dainji.id.vn/thank-you';
 
-          // Xóa selected items khỏi localStorage
-          localStorage.removeItem('selectedCartItems');
-          window.location.href = response.payUrl;
+          // Gọi Momo payment
+          this.cartService.momoPayment(amount, payUrl).subscribe({
+            next: (momoResponse) => {
+              // Lưu orderId để update payment status sau khi callback
+              localStorage.setItem('pendingMomoOrderId', orderResponse.order.id.toString());
+              
+              // Xóa selected items khỏi localStorage
+              localStorage.removeItem('selectedCartItems');
+
+              // Refresh cart count (cart đã được clear ở backend)
+              this.cartService.refreshCartCount();
+
+              // Redirect đến Momo
+              window.location.href = momoResponse.payUrl;
+            },
+            error: (error) => {
+              console.error('Error during Momo payment:', error);
+              this.message.error('Có lỗi xảy ra khi thanh toán với Momo');
+              this.submitting = false;
+            },
+          });
         },
         error: (error) => {
-          console.error('Error during Momo payment:', error);
-          this.message.error('Có lỗi xảy ra khi thanh toán với Momo');
+          console.error('Error creating order:', error);
+          this.message.error('Có lỗi xảy ra khi tạo đơn hàng. Vui lòng thử lại.');
           this.submitting = false;
         },
       });
     } else {
       // Thanh toán khi nhận hàng (COD)
-      // TODO: Gọi API để tạo order
-      console.log('Order data:', orderData);
+      const orderData = {
+        total: this.getTotal(),
+        address: this.checkoutForm.value.address,
+        note: this.checkoutForm.value.note || '',
+        items: this.selectedItems.map((item) => ({
+          product_id: item.product_id,
+          quantity: item.quantity,
+          price: item.price,
+        })),
+      };
 
-      // Giả lập API call
-      setTimeout(() => {
-        this.message.success('Đặt hàng thành công! Cảm ơn bạn đã mua hàng.');
+      // Gọi API để tạo order
+      this.orderService.createOrder(orderData).subscribe({
+        next: (response) => {
+          this.message.success('Đặt hàng thành công! Cảm ơn bạn đã mua hàng.');
 
-        // Lưu thông tin đơn hàng để hiển thị trong trang thank you
-        const orderInfo = {
-          orderId: Date.now().toString(),
-          total: this.getTotal(),
-          paymentMethod: 'cod',
-          address: this.checkoutForm.value.address,
-        };
+          // Xóa selected items khỏi localStorage
+          localStorage.removeItem('selectedCartItems');
 
-        localStorage.removeItem('selectedCartItems');
-        this.submitting = false;
+          // Refresh cart count từ server (backend đã clear cart)
+          this.cartService.refreshCartCount();
 
-        // Chuyển đến trang thank you với thông tin đơn hàng
-        this.router.navigate(['/thank-you'], {
-          state: { orderInfo },
-        });
-      }, 1500);
+          this.submitting = false;
+
+          // Chuyển đến trang thank you với thông tin đơn hàng
+          this.router.navigate(['/thank-you'], {
+            state: { orderInfo: response.order },
+          });
+        },
+        error: (error) => {
+          console.error('Error creating order:', error);
+          this.message.error('Có lỗi xảy ra khi đặt hàng. Vui lòng thử lại.');
+          this.submitting = false;
+        },
+      });
     }
   }
 

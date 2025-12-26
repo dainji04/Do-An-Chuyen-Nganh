@@ -26,7 +26,7 @@ export class ProductNav implements OnInit {
   private http: any = inject(HttpClient);
 
   ngOnInit(): void {
-    this.http.get('http://localhost:8000 /api/categories').subscribe((response: any) => {
+    this.http.get('http://localhost:8000/api/categories').subscribe((response: any) => {
       this.categories = response.data;
       console.log(response);
     });

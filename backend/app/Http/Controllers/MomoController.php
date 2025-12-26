@@ -57,7 +57,7 @@ class MomoController extends Controller
         $amount = $amountRequest;
 
         $orderId = time() . "";
-        $redirectUrl = "http://localhost:3000/home";
+        $redirectUrl = "http://localhost:3000/thank-you";
         $ipnUrl = "http://localhost:3000/home";
         $extraData = "";
 

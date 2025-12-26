@@ -1,0 +1,181 @@
+<div class="profile-container">
+  <nz-layout class="profile-layout">
+    <!-- Sidebar -->
+    <nz-sider nzWidth="250px" nzTheme="light" class="profile-sider">
+      <div class="user-avatar-section">
+        <div class="user-avatar">
+          <img [src]="userInfo?.avatarimage || 'default-avatar.png'" alt="User Avatar" />
+        </div>
+        <h3 class="user-name">{{ userInfo?.fullname || 'Người dùng' }}</h3>
+      </div>
+
+      <ul nz-menu nzMode="inline">
+        <li class="w-fit" nz-menu-item nzKey="info" (click)="onMenuSelect('info')">
+          <span nz-icon nzType="user" nzTheme="outline"></span>
+          <span>Thông tin cá nhân</span>
+        </li>
+        <li class="w-fit" nz-menu-item nzKey="orders" (click)="onMenuSelect('orders')">
+          <span nz-icon nzType="shopping" nzTheme="outline"></span>
+          <span>Lịch sử đặt hàng</span>
+        </li>
+      </ul>
+    </nz-sider>
+
+    <!-- Content -->
+    <nz-content class="profile-content">
+      <!-- User Info Section -->
+      <nz-card *ngIf="selectedMenu === 'info'" nzTitle="Thông tin cá nhân" class="info-card">
+        <nz-descriptions nzBordered [nzColumn]="1">
+          <nz-descriptions-item nzTitle="Tên đăng nhập">
+            {{ userInfo?.username }}
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Họ và tên">
+            {{ userInfo?.fullname }}
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Email">
+            {{ userInfo?.email }}
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Số điện thoại">
+            {{ userInfo?.numberphone }}
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Địa chỉ">
+            {{ userInfo?.address }}
+          </nz-descriptions-item>
+        </nz-descriptions>
+      </nz-card>
+
+      <!-- Order History Section -->
+      <nz-card *ngIf="selectedMenu === 'orders'" nzTitle="Lịch sử đặt hàng" class="order-card">
+        <nz-table
+          #orderTable
+          [nzData]="orders"
+          [nzLoading]="loading"
+          [nzPageSize]="10"
+          [nzTotal]="total"
+          [nzPageIndex]="currentPage"
+          (nzPageIndexChange)="loadOrderHistory($event)"
+        >
+          <thead>
+            <tr>
+              <th>Mã đơn hàng</th>
+              <th>Ngày đặt</th>
+              <th>Tổng tiền</th>
+              <th>Trạng thái thanh toán</th>
+              <th>Trạng thái đơn hàng</th>
+              <th>Hành động</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let order of orders">
+              <td>#{{ order.id }}</td>
+              <td>{{ formatDate(order.created_at) }}</td>
+              <td>{{ formatCurrency(order.total) }}</td>
+              <td>
+                <nz-tag [nzColor]="getStatusColor(order.status)">
+                  {{ getStatusText(order.status) }}
+                </nz-tag>
+              </td>
+              <td>
+                <nz-tag [nzColor]="getStatusColor(order.process)">
+                  {{ getStatusText(order.process) }}
+                </nz-tag>
+              </td>
+              <td>
+                <button
+                  style="display: flex; justify-content: center; align-items: center"
+                  nz-button
+                  nzType="primary"
+                  nzSize="small"
+                  (click)="showOrderDetail(order)"
+                >
+                  <span nz-icon nzType="eye" nzTheme="outline"></span>
+                  Chi tiết
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </nz-card>
+    </nz-content>
+  </nz-layout>
+</div>
+
+<!-- Order Detail Modal -->
+<nz-modal
+  [(nzVisible)]="isOrderDetailModalVisible"
+  nzTitle="Chi tiết đơn hàng #{{ selectedOrder?.id }}"
+  [nzFooter]="null"
+  (nzOnCancel)="handleOrderDetailCancel()"
+  nzWidth="800px"
+>
+  <ng-container *nzModalContent>
+    <div *ngIf="selectedOrder" class="order-detail-modal">
+      <!-- Order Info -->
+      <nz-descriptions nzBordered [nzColumn]="2" class="order-info-section">
+        <nz-descriptions-item nzTitle="Mã đơn hàng" [nzSpan]="2">
+          #{{ selectedOrder.id }}
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Ngày đặt">
+          {{ formatDate(selectedOrder.created_at) }}
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Tổng tiền">
+          <strong>{{ formatCurrency(selectedOrder.total) }}</strong>
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Trạng thái thanh toán">
+          <nz-tag [nzColor]="getStatusColor(selectedOrder.status)">
+            {{ getStatusText(selectedOrder.status) }}
+          </nz-tag>
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Trạng thái đơn hàng">
+          <nz-tag [nzColor]="getStatusColor(selectedOrder.process)">
+            {{ getStatusText(selectedOrder.process) }}
+          </nz-tag>
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Địa chỉ giao hàng" [nzSpan]="2">
+          {{ selectedOrder.address }}
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Ghi chú" [nzSpan]="2" *ngIf="selectedOrder.note">
+          {{ selectedOrder.note }}
+        </nz-descriptions-item>
+      </nz-descriptions>
+
+      <!-- Order Items -->
+      <div class="order-items-section">
+        <h4>Sản phẩm trong đơn hàng</h4>
+        <nz-table
+          #detailTable
+          [nzData]="selectedOrder.orderdetails"
+          [nzShowPagination]="false"
+          nzSize="small"
+        >
+          <thead>
+            <tr>
+              <th>Hình ảnh</th>
+              <th>Tên sản phẩm</th>
+              <th>Đơn giá</th>
+              <th>Số lượng</th>
+              <th>Thành tiền</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let detail of selectedOrder.orderdetails">
+              <td>
+                <img
+                  [src]="detail.product.image"
+                  [alt]="detail.product.productname"
+                  class="product-image"
+                />
+              </td>
+              <td>{{ detail.product.productname }}</td>
+              <td>{{ formatCurrency(detail.price) }}</td>
+              <td>{{ detail.quantity }}</td>
+              <td>
+                <strong>{{ formatCurrency(detail.total) }}</strong>
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </div>
+    </div>
+  </ng-container>
+</nz-modal>

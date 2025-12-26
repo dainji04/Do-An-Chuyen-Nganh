@@ -45,5 +45,36 @@
     </div>
   </div>
 
-  <div class="mb-[500px]"></div>
+  <!-- About -->
+  <!-- Stats Section -->
+  <section class="stats bg-white">
+    <div class="container">
+      <div class="stats-grid">
+        @for (stat of stats; track stat.label) {
+        <div class="stat-card">
+          <div class="stat-value">{{ stat.value }}</div>
+          <div class="stat-label">{{ stat.label }}</div>
+        </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Values Section -->
+  <section class="values">
+    <div class="container">
+      <h2 class="section-title">Giá trị cốt lõi</h2>
+      <div class="values-grid">
+        @for (value of values; track value.title) {
+        <div class="value-card">
+          <div class="value-icon">{{ value.icon }}</div>
+          <h3 class="value-title">{{ value.title }}</h3>
+          <p class="value-description">{{ value.description }}</p>
+        </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <div class="mb-[300px]"></div>
 </div>

@@ -11,6 +11,7 @@ import { Contact } from './pages/contact/contact';
 import { ListProductsByCategory } from './pages/list-products-by-category/list-products-by-category';
 import { SearchPage } from './pages/search-page/search-page';
 import { AuthCallbackComponent } from './pages/auth-callback/auth-callback';
+import { ProfileComponent } from './pages/profile/profile';
 
 export const routes: Routes = [
   { path: 'home', component: Home },
@@ -20,6 +21,7 @@ export const routes: Routes = [
   { path: 'cart', component: Cart },
   { path: 'checkout', component: Checkout },
   { path: 'thank-you', component: ThankYou },
+  { path: 'profile', component: ProfileComponent },
   { path: 'category/:id', component: ListProductsByCategory },
   { path: 'search', component: SearchPage },
   { path: 'login', component: Login },

@@ -23,7 +23,7 @@ interface RegisterFormData {
   providedIn: 'root',
 })
 export class Auth {
-  private apiUrl = 'http://localhost:8000 /api';
+  private apiUrl = 'http://localhost:8000/api';
   private currentUserSubject: BehaviorSubject<User | null>;
   public currentUser: Observable<User | null>;
 

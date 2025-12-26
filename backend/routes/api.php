@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\GoogleAuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +51,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::delete('/cart/clear', [CartController::class, 'clearCart']);
     Route::apiResource('cart', CartController::class);
+
+    // Order routes
+    Route::get('/orders', [OrderController::class, 'index']);
+    Route::post('/orders', [OrderController::class, 'store']);
+    Route::get('/orders/{id}', [OrderController::class, 'show']);
+    Route::put('/orders/{id}/payment-status', [OrderController::class, 'updatePaymentStatus']);
 
     Route::post('/momo-payment', [App\Http\Controllers\MomoController::class, 'momoPayment']);
 });

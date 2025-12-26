@@ -1,0 +1,162 @@
+.profile-container {
+  min-height: 100vh;
+  background-color: #f0f2f5;
+  padding: 24px;
+}
+
+.profile-layout {
+  background: #fff;
+  min-height: calc(100vh - 48px);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.profile-sider {
+  background: #fff;
+  border-right: 1px solid #f0f0f0;
+
+  .user-avatar-section {
+    padding: 32px 24px;
+    text-align: center;
+    border-bottom: 1px solid #f0f0f0;
+
+    .user-avatar {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 16px;
+      background: linear-gradient(to right, #337ae5 0, #408fe5 34%, #d4734a 71%, #ea6b2e 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      span {
+        font-size: 36px;
+        color: #fff;
+      }
+    }
+
+    .user-name {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: #262626;
+    }
+  }
+
+  ul[nz-menu] {
+    border-right: none;
+
+    li[nz-menu-item] {
+      margin: 8px 12px;
+      border-radius: 6px;
+
+      &.ant-menu-item-selected {
+        background-color: #e6f7ff;
+        color: #1890ff;
+      }
+
+      span[nz-icon] {
+        font-size: 16px;
+        margin-right: 8px;
+      }
+    }
+  }
+}
+
+.profile-content {
+  padding: 24px;
+  background: #f0f2f5;
+
+  .info-card,
+  .order-card {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+    border-radius: 8px;
+
+    ::ng-deep .ant-card-head {
+      background: linear-gradient(to right, #337ae5 0, #408fe5 34%, #d4734a 71%, #ea6b2e 100%);
+      border: none;
+
+      .ant-card-head-title {
+        color: #fff;
+        font-size: 18px;
+        font-weight: 600;
+      }
+    }
+  }
+
+  ::ng-deep {
+    .ant-descriptions-item-label {
+      font-weight: 500;
+      background-color: #fafafa;
+      width: 200px;
+    }
+
+    .ant-table {
+      font-size: 14px;
+    }
+
+    .ant-btn-primary {
+      border-radius: 6px;
+    }
+  }
+}
+
+.order-detail-modal {
+  .order-info-section {
+    margin-bottom: 24px;
+  }
+
+  .order-items-section {
+    h4 {
+      margin-bottom: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #262626;
+    }
+
+    .product-image {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid #f0f0f0;
+    }
+
+    ::ng-deep {
+      .ant-table {
+        font-size: 13px;
+      }
+
+      .ant-table-thead > tr > th {
+        background-color: #fafafa;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 12px;
+  }
+
+  .profile-sider {
+    nz-sider {
+      width: 200px !important;
+    }
+  }
+
+  .profile-content {
+    padding: 16px;
+  }
+
+  ::ng-deep .ant-descriptions-item-label {
+    width: 120px !important;
+  }
+}
+
+.ant-menu-inline {
+  width: fit-content !important;
+}
