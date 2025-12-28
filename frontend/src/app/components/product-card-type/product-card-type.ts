@@ -32,7 +32,10 @@ export class ProductCardType {
       },
       error: (error) => {
         console.error('Error adding to cart:', error);
-        this.notification.error('Lỗi', 'Không thể thêm sản phẩm vào giỏ hàng.');
+        this.notification.info(
+          'Yêu cầu đăng nhập',
+          'Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.'
+        );
         this.isAddingToCart = false;
       },
     });

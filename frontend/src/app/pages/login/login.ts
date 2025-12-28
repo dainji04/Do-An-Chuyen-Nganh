@@ -70,8 +70,6 @@ export class Login {
   }
 
   loginWithGoogle(): void {
-    this.message.info('Tính năng đăng nhập với Google đang phát triển');
-    // TODO: Implement Google OAuth
     this.authService.getGoogleAuthUrl().subscribe({
       next: (response) => {
         // Chuyển hướng trình duyệt sang trang Google

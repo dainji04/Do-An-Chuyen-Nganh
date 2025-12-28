@@ -184,7 +184,7 @@ export class Checkout implements OnInit {
         next: (orderResponse) => {
           // Order đã được tạo và lưu vào history, cart đã được clear
           const amount = this.getTotal().toString();
-          const payUrl = 'https://dainji.id.vn/thank-you';
+          const payUrl = 'http://localhost:3000/thank-you';
 
           // Gọi Momo payment
           this.cartService.momoPayment(amount, payUrl).subscribe({
@@ -202,7 +202,6 @@ export class Checkout implements OnInit {
               window.location.href = momoResponse.payUrl;
             },
             error: (error) => {
-              console.error('Error during Momo payment:', error);
               this.message.error('Có lỗi xảy ra khi thanh toán với Momo');
               this.submitting = false;
             },
